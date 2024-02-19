@@ -234,8 +234,14 @@ let registrationController = (req, res)=>{
     //     }
     //   ]
 
+    let {name, email, password} = req.body
+
+    console.log(name, email, password);
+
       res.send(data)
 }
 module.exports = registrationController
 // 4. middleware ki? ami kono ekta route e hit korbo oitate kono permission dibe ki dibe na eta hocche middle ware er kaaj 
 // amar shob data ami shobaike access korte dite chai na er jonno ami middleware bebohar korbo 
+
+// 5. frontend theke jokhoni kono data ashbe backend e oita hobe req.body te. toh ami distructure kore name, email ar password niye ashbo 
