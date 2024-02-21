@@ -1,4 +1,8 @@
-let registrationController = (req, res)=>{
+const User = require('../model/userModel')
+const bcrypt = require('bcrypt');
+
+ 
+let registrationController = async (req, res)=>{
     // res.send('this is router from registrationControllers')
     // res.send('this is router from registrationControllers')
     // let data = [
@@ -234,11 +238,74 @@ let registrationController = (req, res)=>{
     //     }
     //   ]
 
-    let {name, email, password} = req.body
-
+    // let data = {name, email, password} = req.body
+    const {name, email, password} = req.body
     console.log(name, email, password);
+    if(!name || !email || !password){
+      return res.send({error: 'Please fill up all the fields'})
 
-      res.send(data)
+    }
+    if(password && password.length < 8){
+     return res.send({error: 'Password is too small'})
+    }
+
+    let existingUser = await User.find({email: email})
+    console.log(existingUser);
+
+
+    if(existingUser.length > 0){
+      return res.send({error: `${email} already in use`})
+    }
+    else{
+      bcrypt.hash(password, 10, function(err, hash) {
+        // console.log(hash);
+
+        
+      let user = new User({
+      name: name,
+      email: email,
+      password: hash
+    })
+
+    user.save()
+    res.send({
+      name: user.name,
+      email: user.email,
+      role: user.role
+    })
+
+
+    });
+
+
+    }
+
+    // 8. ekhon amader email verfication korte hobe 
+    // ekhon existingUser diye User theke find korbo email field theke ekhaner email value er shathe mile kina. ekhon existingUser console.log korle ami jodi same email post kori tahole oi value ta array te pathabe ar jodi different thake tahole faka array dibe
+
+    // 9. ekhon amar password ke secure rakhar jonno amar encrypt korte hobe. ar etar best way hocche bcrypt use kora. bcrypt install korar pore ami agey require korbo tarpore oitake hashing korbo. 1st parameter e password dibo porer salt e 10 dibo. salt er kaaj hocche same password ke nanan dhoroner combination e ana. er pore hash takey console kore dekbo password kishe turn korse. ekhon ei password ta ami database e pathay dibo. ar oi password er jaygay boshabo hash
+
+    // 10. response er khetre password pathabo na amra. er jonno pura user na pathay selected kichu pathabo. karon password ta redux e save thaka lagbe
+
+    // let user = new User({
+    //   name: name,
+    //   email: email,
+    //   password: password
+    // })
+
+    // user.save()
+    // res.send(user)
+
+    console.log('database e data jabe');
+    // 7. ei console ta ashche jokhon error o thake. so error thakle toh database e data jawar kotha na. er jonnoi proti if  condition er bhitore ekta kore return deya lagbe. ar return dile nicher code dekbe na
+
+    // 8. ebar database e data rakte chai ar oitar jonno schema ready korte hobe. schema hocche ekta model
+
+
+
+
+
+
 }
 module.exports = registrationController
 // 4. middleware ki? ami kono ekta route e hit korbo oitate kono permission dibe ki dibe na eta hocche middle ware er kaaj 

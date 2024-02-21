@@ -7,6 +7,13 @@ const mongoConfig = require('./config/mongoConfig')
 mongoConfig()
 
 
+
+
+app.use(express.json())
+// frontend jokhon backend e json data pathay tokhon backend json read korte pare na. Tokhon ei middleware er through te json e convert korte hoy. eita automatically json e convert kore felbe
+
+
+
 app.use('/', router)
 
 // 1. ekhane use ta hocche middleware. Middleware er kaaj hocche router jaate connect hoy ei file er shathe. ar router file er oikhane main kaaj jekhane value gulake get kortese
