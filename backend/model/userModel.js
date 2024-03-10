@@ -10,7 +10,8 @@ const userSchema = new Schema({
         enum: ["Admin", "Merchant", "User"],
         default: "User"
 
-    }
+    },
+    otp: String
 })
 
 module.exports = mongoose.model("User", userSchema)
