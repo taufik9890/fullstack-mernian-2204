@@ -1,6 +1,7 @@
 const User = require('../model/userModel')
 const bcrypt = require('bcrypt');
-
+const nodemailer = require("nodemailer");
+const otpGenerator = require('otp-generator')
  
 let registrationController = async (req, res)=>{
     // res.send('this is router from registrationControllers')
@@ -257,17 +258,43 @@ let registrationController = async (req, res)=>{
       return res.send({error: `${email} already in use`})
     }
     else{
-      bcrypt.hash(password, 10, function(err, hash) {
+
+     let otp =  otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
+     console.log(otp);
+
+      bcrypt.hash(password, 10, async function(err, hash) {
         // console.log(hash);
 
         
       let user = new User({
       name: name,
       email: email,
-      password: hash
+      password: hash,
+      otp: otp
     })
-
     user.save()
+
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        // TODO: replace `user` and `pass` values from <https://forwardemail.net>
+        user: "taufik9890@gmail.com",
+        pass: "axtp hdbs wnaw zzme",
+      },
+    });
+    
+
+    const info = await transporter.sendMail({
+      from: `"MERNIAN"`, // sender address
+      to: email, // list of receivers
+      subject: "This is your Verification", // Subject line
+      text: "This is your Verification", // plain text body
+      html: `Here is your <b>OTP: </b>${otp}`, // html body
+    });
+
+
+
     res.send({
       name: user.name,
       email: user.email,
