@@ -4,6 +4,7 @@ const secureApi =(req, res, next)=>{
         next()
     }
     else{
+        res.status(401)
         res.send({error:'invalid api'})
     }
 }
