@@ -19,7 +19,7 @@ function App() {
       
       )
   
-      console.log(data);
+      console.log('Bdate',data);
     }
     catch(error){
       console.log(error);
