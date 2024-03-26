@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
-import { Button, Checkbox, Form, Input,  Alert, Space } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Checkbox, Form, Input,  Alert,  Modal  } from 'antd';
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+import ResendMail from '../components/ResendMail';
 
 const Registration = () => {
-    const navigate = useNavigate()
+
+
+    // const [email, setEmail] = useState('')
+    // const[emailerr, setEmailErr] = useState('')
+
 
      const [loading, setLoading] = useState(false)
   const [msg, setmsg] = useState('')
+  // const [error, setError] = useState('')
   const onFinish = async (values) => {
     console.log('Success:', values);
     setLoading(true)
@@ -21,18 +26,19 @@ const Registration = () => {
           Authorization: "3sw20aYo'?Nq"
         }
       }
-      
       )
   
       console.log('Bdate',data);
       setmsg("Registration Successful!! Please check your email.")
-      setTimeout(()=>{
-          navigate('/otpverification')
-        }, 1500)
-        //   setLoading(false)
+      // setTimeout(()=>{
+      //     navigate(`/otpverification/${values.email}`)
+      //   }, 1500)
+          setLoading(false)
+
 
     }
     catch(error){
+      // setError(error);
       console.log(error);
     }
   };
@@ -40,6 +46,33 @@ const Registration = () => {
     console.log('Failed:', errorInfo);
   };
 
+
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const showModal = () => {
+  //   setIsModalOpen(true);
+  // };
+  // const handleOk = async () => {
+  //   try{
+  //     let data =  await axios.post('http://localhost:8000/api/V1/auth/resendmail', {
+  //     email: email
+  //   })
+  //   console.log(data);
+    
+  //   setIsModalOpen(false);
+
+  //   }
+  //   catch(error){
+  //     // console.log(error.response.data.error);
+  //     // setEmailErr(error.response.data?.error)
+  //     // setEmailErr(error.response.data?.error)
+  //     console.log(error);
+
+  //   }
+    
+  // };
+  // const handleCancel = () => {
+  //   setIsModalOpen(false);
+  // };
 
   
   // http://localhost:8000/api/V1/auth/registration
@@ -121,10 +154,13 @@ const Registration = () => {
       <Button loading={loading} disabled={loading} type="primary" htmlType="submit">
         Submit
       </Button>
+      <ResendMail/>
+
     </Form.Item>
   </Form>
+  
     </>
   )
 }
-
+ 
 export default Registration

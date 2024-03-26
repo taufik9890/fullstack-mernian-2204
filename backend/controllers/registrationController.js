@@ -2,6 +2,7 @@ const User = require('../model/userModel')
 const bcrypt = require('bcrypt');
 const nodemailer = require("nodemailer");
 const otpGenerator = require('otp-generator')
+var jwt = require('jsonwebtoken');
  
 let registrationController = async (req, res)=>{
     // res.send('this is router from registrationControllers')
@@ -259,10 +260,13 @@ let registrationController = async (req, res)=>{
     }
     else{
 
-     let otp =  otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
+     let otp =  otpGenerator.generate(6, { upperCaseAlphabets: false, lowerCaseAlphabets: false, specialChars: false });
      console.log(otp);
 
       bcrypt.hash(password, 10, async function(err, hash) {
+
+
+        
         // console.log(hash);
 
         
@@ -274,24 +278,33 @@ let registrationController = async (req, res)=>{
     })
     user.save()
 
-
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        // TODO: replace `user` and `pass` values from <https://forwardemail.net>
-        user: "taufik9890@gmail.com",
-        pass: "axtp hdbs wnaw zzme",
-      },
+    jwt.sign({ email: email }, 'shhhhh', async  function(err, token) {
+      // console.log(token);
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          // TODO: replace `user` and `pass` values from <https://forwardemail.net>
+          user: "taufik9890@gmail.com",
+          pass: "axtp hdbs wnaw zzme",
+        },
+      });
+      
+  
+      const info = await transporter.sendMail({
+        from: `"MERNIAN"`, // sender address
+        to: email, // list of receivers
+        subject: "This is your Verification", // Subject line
+        text: "This is your Verification", // plain text body
+        //html: `Here is your <b>OTP: </b>${otp}`, // html body
+        html: `Here is your <a href="http://localhost:5173/emailverification/${token}">CLick here</a>`, 
+      });
+  
     });
-    
+    setTimeout( async() => {
+      await User.findOneAndUpdate({email: email}, {otp: ''})
+      console.log('Otp done');
+    }, 10000);
 
-    const info = await transporter.sendMail({
-      from: `"MERNIAN"`, // sender address
-      to: email, // list of receivers
-      subject: "This is your Verification", // Subject line
-      text: "This is your Verification", // plain text body
-      html: `Here is your <b>OTP: </b>${otp}`, // html body
-    });
 
 
 
@@ -339,3 +352,6 @@ module.exports = registrationController
 // amar shob data ami shobaike access korte dite chai na er jonno ami middleware bebohar korbo 
 
 // 5. frontend theke jokhoni kono data ashbe backend e oita hobe req.body te. toh ami distructure kore name, email ar password niye ashbo 
+
+
+// 14. ekhon amra ekta email link verify korbo. shetar jonno dashboard e ekta page create kore rakbo. ar app.jsx er route er url er piche token diye rakbo var hshabe. er jonno ekhon ekhon token create korbo jwt token theke. 
