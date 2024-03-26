@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 import Registration from '../pages/Registration';
 import OtpVerification from '../pages/OtpVerification';
+import Login from '../pages/Login';
+import EmailVerifyLink from '../pages/EmailVerifyLink';
 
 
 
@@ -18,8 +20,16 @@ const router = createBrowserRouter(
           element={<Registration/>}
         />
         <Route
-          path="/otpverification"
+          path="/otpverification/:email"
           element={<OtpVerification/>}
+        />
+        <Route
+          path="/login"
+          element={<Login/>}
+        />
+        <Route
+          path="/emailverification/:token"
+          element={<EmailVerifyLink/>}
         />
     </Route>
   )
