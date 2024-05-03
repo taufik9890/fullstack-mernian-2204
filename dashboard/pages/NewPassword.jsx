@@ -1,37 +1,40 @@
 import React, { useState } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
-const ForgotPassword = () => {
-  let [loading, setLoading] = useState(false);
+const NewPassword = () => {
+    let [loading, setLoading] = useState(false);
+    let param = useParams()
 
-  const onFinish = async (values) => {
-    console.log("Success:", values);
-
-    setLoading(true);
-    try {
-      let data = await axios.post(
-        "http://localhost:8000/api/V1/auth/forgotpassword",
-        {
-          email: values.email,
-        },
-        {
-          headers: {
-            Authorization: "3sw20aYo'?Nq",
+    const onFinish = async (values) => {
+      // console.log("Success:", values);
+      console.log(values);
+  
+      setLoading(true);
+      try {
+        let data = await axios.post(
+          "http://localhost:8000/api/V1/auth/newpassword",
+          {
+            password: values.password,
+            token: param.token
           },
-        }
-      );
-      console.log( 'fdata', data);
-      setLoading(false);
-    } catch (error) {
-      // setError(error);
-      console.log(error);
-    }
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
+          {
+            headers: {
+              Authorization: "3sw20aYo'?Nq",
+            },
+          }
+        );
+        console.log( 'fdata', data);
+        setLoading(false);
+      } catch (error) {
+        // setError(error);
+        console.log(error);
+      }
+    };
+    const onFinishFailed = (errorInfo) => {
+      console.log("Failed:", errorInfo);
+    };
   return (
     <div>
       <Form
@@ -53,8 +56,8 @@ const ForgotPassword = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="Email"
-          name="email"
+          label="New Password"
+          name="password"
           rules={[
             {
               required: true,
@@ -82,7 +85,7 @@ const ForgotPassword = () => {
         </Form.Item>
       </Form>
     </div>
-  );
-};
+  )
+}
 
-export default ForgotPassword;
+export default NewPassword
