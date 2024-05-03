@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Checkbox, Form, Input,  Alert,  Modal  } from 'antd';
 import axios from 'axios'
 import ResendMail from '../components/ResendMail';
+import { Link } from 'react-router-dom';
 
 const Registration = () => {
 
@@ -107,6 +108,7 @@ const Registration = () => {
     autoComplete="off"
   >
     <Form.Item
+    className='Form_design'
       label="Username"
       name="username"
       rules={[
@@ -119,6 +121,7 @@ const Registration = () => {
       <Input />
     </Form.Item>
     <Form.Item
+
       label="Email"
       name="email"
       rules={[
@@ -151,11 +154,13 @@ const Registration = () => {
         span: 16,
       }}
     >
+      <div className='btn_container'>
       <Button loading={loading} disabled={loading} type="primary" htmlType="submit">
         Submit
       </Button>
       <ResendMail/>
-
+      </div>
+      <Link to="/forgotpassword" >Forgot Password</Link>
     </Form.Item>
   </Form>
   

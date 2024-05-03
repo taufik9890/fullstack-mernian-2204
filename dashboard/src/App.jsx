@@ -9,6 +9,10 @@ import Registration from '../pages/Registration';
 import OtpVerification from '../pages/OtpVerification';
 import Login from '../pages/Login';
 import EmailVerifyLink from '../pages/EmailVerifyLink';
+import ForgotPassword from '../pages/ForgotPassword';
+import NewPassword from '../pages/NewPassword';
+import Dashboard from '../pages/Dashboard';
+import AddCategory from '../pages/AddCategory';
 
 
 
@@ -31,6 +35,24 @@ const router = createBrowserRouter(
           path="/emailverification/:token"
           element={<EmailVerifyLink/>}
         />
+        <Route
+          path="/forgotpassword"
+          element={<ForgotPassword/>}
+        />
+        <Route
+          path="/newpassword/:token"
+          element={<NewPassword/>}
+        />
+        <Route
+          path="/dashboard"
+          element={<Dashboard/>}
+        >
+          <Route
+          path="addcategory"
+          element={<AddCategory/>}
+        />
+
+        </Route>
     </Route>
   )
 );
