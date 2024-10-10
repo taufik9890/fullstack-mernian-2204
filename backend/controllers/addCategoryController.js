@@ -2,9 +2,10 @@ const Category = require('../model/categoryModel')
 
 let addCategoryController = async (req, res)=>{
     
-    try{
+    try{ 
         const {name} = req.body
         console.log(name.toLowerCase());
+        console.log(`/uploads/${req.file.filename}`);
         // res.send('hello')
     
         let existingCategory = await Category.find({name: name.toLowerCase()})
@@ -15,7 +16,8 @@ let addCategoryController = async (req, res)=>{
         }
         else{ 
             let cat = new Category({
-                name: name.toLowerCase()
+                name: name.toLowerCase(),
+                image: `/uploads/${req.file.filename}`
             })
     
             await   cat.save()
