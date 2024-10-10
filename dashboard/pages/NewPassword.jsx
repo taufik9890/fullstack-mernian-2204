@@ -14,7 +14,7 @@ const NewPassword = () => {
       setLoading(true);
       try {
         let data = await axios.post(
-          "http://localhost:8000/api/V1/auth/newpassword",
+          "https://fullstack-mernian-2204.onrender.com/api/V1/auth/newpassword",
           {
             password: values.password,
             token: param.token

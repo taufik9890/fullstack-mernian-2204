@@ -14,7 +14,7 @@ const ResendMail = () => {
   const handleOk =  () => {
     // console.log(email);
     setConfirmLoading(true);
-    axios.post('http://localhost:8000/api/V1/auth/resendmail',{
+    axios.post('https://fullstack-mernian-2204.onrender.com/api/V1/auth/resendmail',{
         email: email
     }).then((res)=>{
         console.log(res);

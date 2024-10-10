@@ -12,7 +12,7 @@ const ViewSubCategory = () => {
     useEffect(() => {
         async function allsubcategory() {
           let data = await axios.get(
-            "http://localhost:8000/api/v1/product/viewsubcategory");
+            "https://fullstack-mernian-2204.onrender.com/api/v1/product/viewsubcategory");
             let subCategoryData = []
     
             data.data.map((item)=>{

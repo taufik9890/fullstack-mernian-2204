@@ -8,7 +8,7 @@ const ViewProduct = () => {
   useEffect(() => {
     async function allcategory() {
       let data = await axios.get(
-        "http://localhost:8000/api/v1/product/viewproduct"
+        "https://fullstack-mernian-2204.onrender.com/api/v1/product/viewproduct"
       );
       let categoryData = [];
  
@@ -75,7 +75,7 @@ const ViewProduct = () => {
       dataIndex: "image",
       key: "image",
       render: (_, record) => (
-        <img width={50} src={`http://localhost:8000${record.image}`} />
+        <img width={50} src={`https://fullstack-mernian-2204.onrender.com${record.image}`} />
         //   <a>Invite {record.image}</a>
       ),
     },
