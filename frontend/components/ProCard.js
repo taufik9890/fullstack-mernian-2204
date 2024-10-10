@@ -19,7 +19,7 @@ const ProCard = ({data}) => {
     data.map((item)=>(
         <Card style={{ width: '18rem' }}>
       <Image
-        src={`https://127.0.0.1:8000${item.image}`}
+        src={`http://127.0.0.1:8000${item.image}`}
         width={500}
         height={500}
         alt="Picture of the author"
