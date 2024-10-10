@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 import { Col, Row, Menu,  Button, Checkbox, Form, Input } from "antd";
 import { Outlet, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
 
@@ -21,46 +22,59 @@ const Dashboard = () => {
       type,
     };
   }
+
+
+  
+
+  const userInfo = useSelector(state => state.user.value)
+
+  // console.log(userInfo.role);
+
+
   const items = [
+
+
+    userInfo.role != "User" &&
     getItem("Users", "sub1", <MailOutlined />, [
       getItem("Add User", "1"),
       getItem("View User", "2"),
     ]),
-    {
-      type: "divider",
-    },
+    
+    userInfo.role !=  "User" &&
     getItem("Product", "sub2", <AppstoreOutlined />, [
-      getItem("Add Product", "3"),
-      getItem("VIew Product", "4"),
+      getItem("Add Product", "/dashboard/addproduct"),
+      getItem("View Product", "/dashboard/viewproduct"),
     ]),
-    {
-      type: "divider",
-    },
+    
+    userInfo.role !=  "User" &&
     getItem("Category", "sub3", <SettingOutlined />, [
       getItem("Add Category", "/dashboard/addcategory"),
-      getItem("View Category", "6"),
-      getItem("Add Subcategory", "7"),
-      getItem("View Subcategory", "8"),
+      getItem("View Category", "/dashboard/viewcategory"),
+      getItem("Add Subcategory", "/dashboard/addsubcategory"),
+      getItem("View Subcategory", "/dashboard/viewsubcategory"),
     ]),
+    
+    userInfo.role !=  "User" &&
     getItem("Discount", "sub4", <SettingOutlined />, [
       getItem("Add Discount", "9"),
       getItem("View Discount", "10"),
       getItem("Add Subcategory", "11"),
       getItem("View Subcategory", "12"),
     ]),
-    getItem(
-      "Group",
-      "grp",
-      null,
-      [getItem("Option 13", "13"), getItem("Option 14", "14")],
-      "group"
-    ),
+    userInfo.role ==  "User" &&
+    getItem("My Profile", "sub5", <SettingOutlined />, [
+      getItem("Purchase Details", "13"),
+      getItem("Profile", "14"),
+    ]),
   ];
 
+
+ 
   const onClick = (e) => {
-    console.log("click ", e);
     navigate(e.key)
   };
+
+
   return (
     <Row gutter={15}>
       <Col span={6}>

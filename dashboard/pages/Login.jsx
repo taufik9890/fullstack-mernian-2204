@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { Button, Checkbox, Form, Input,  Alert, Space } from 'antd';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import {useDispatch} from 'react-redux'
+import { activeUser } from '../src/slices/userSlice';
 
 const Login = () => {
+  
+
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
      const [loading, setLoading] = useState(false)
@@ -23,7 +28,29 @@ const Login = () => {
       )
   
       console.log('Bdate',data);
-      setmsg(data.data)
+      setmsg(data.data.success)
+
+      dispatch(activeUser(data.data))
+      localStorage.setItem('user',JSON.stringify(data.data))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //     dispatch(activeUser(data.data))
+  // localStorage.setItem("user", JSON.stringify(data.data))
         //   setLoading(false)
 
     }
@@ -31,6 +58,8 @@ const Login = () => {
       console.log(error);
     }
   };
+
+
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };

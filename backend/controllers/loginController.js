@@ -1,26 +1,49 @@
 const User = require('../model/userModel')
 const bcrypt = require('bcrypt');
- 
-let loginController = async (req, res)=>{
-const {email, password} = req.body
-const findUser = await User.findOne({email: email})
-// console.log(findUser.password); 
+var jwt = require('jsonwebtoken');
 
-if(findUser){
-    bcrypt.compare(password, findUser.password, function(err, result) {
-        // result == true
-        console.log(result);
-        if(result){
-            res.send("Login Successful!")
-        }
-        else{
-            res.send('Credential not matched!')
-        }
-    });
-}
-else{
-    res.send({error: "User not Found"})
-}
+let loginController = async (req, res) => {
+    const {
+        email,
+        password
+    } = req.body
+    const findUser = await User.findOne({
+        email: email
+    })
+    // console.log(findUser.password); 
+
+    if (findUser) {
+        bcrypt.compare(password, findUser.password, function (err, result) {
+            // result == true
+            console.log(result);
+            console.log(findUser);
+
+            var token = jwt.sign({
+                id: findUser._id,
+                email: findUser.email,
+                name: findUser.name
+            }, 'shhhhh', {
+                expiresIn: "24h"
+            });
+            if (result) {
+                res.json({
+                    success: "Login Successful!",
+                    token: token,
+                    email: findUser.email,
+                    name: findUser.name,
+                    role: findUser.role
+                })
+            } else {
+                res.send({
+                    error: 'Credential not matched!'
+                })
+            }
+        });
+    } else {
+        res.send({
+            error: "User not Found"
+        })
+    }
 
 }
 

@@ -1,13 +1,15 @@
 require('dotenv').config()
 const express = require('express')
 const router = require('./routes/index')
-var cors = require('cors') 
+var cors = require('cors')
 const app = express()
 const mongoConfig = require('./config/mongoConfig')
+const path = require('path')
+
+
 
 mongoConfig()
 app.use(cors())
-
 
 
 
@@ -23,11 +25,12 @@ app.use('/', router)
 // app.get('/', function (req, res) {
 //   res.send('8000 port Oh yeah it is what it is')
 // })
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 const port = process.env.PORT || 8000
 
 
 
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log("Port running");
 })
