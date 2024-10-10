@@ -6,7 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 async function getData(){
-  const res = await fetch("http://localhost:8000/api/v1/product/viewproduct")
+  const res = await fetch("https://fullstack-mernian-2204.onrender.com/api/v1/product/viewproduct")
   if(!res.ok){
     throw new Error("Failed to fetch data")
   }

@@ -13,7 +13,7 @@ let navigate = useNavigate()
 
  useEffect (()=>{
  async function verify(){
-  let data = await axios.post('http://localhost:8000/api/V1/auth/linkverification',
+  let data = await axios.post('https://fullstack-mernian-2204.onrender.com/api/V1/auth/linkverification',
       {
         token: param.token,
       }

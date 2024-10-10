@@ -11,7 +11,7 @@ const ForgotPassword = () => {
     setLoading(true);
     try {
       let data = await axios.post(
-        "http://localhost:8000/api/V1/auth/forgotpassword",
+        "https://fullstack-mernian-2204.onrender.com/api/V1/auth/forgotpassword",
         {
           email: values.email,
         },
