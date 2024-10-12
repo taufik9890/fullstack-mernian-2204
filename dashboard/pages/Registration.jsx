@@ -18,7 +18,7 @@ const Registration = () => {
     console.log('Success:', values);
     setLoading(true)
     try{
-      let data = await axios.post('https://fullstack-mernian-2204.onrender.com/api/V1/auth/registration',{
+      let data = await axios.post('http://localhost:8000/api/V1/auth/registration',{
         name: values.username,
         email: values.email,
         password: values.password

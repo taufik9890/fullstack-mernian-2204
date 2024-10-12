@@ -4,7 +4,7 @@ import React from 'react'
 
 
 async function getData(params){
-  const res = await fetch(`https://fullstack-mernian-2204.onrender.com/api/v1/product/singlepro/${params.slug}`)
+  const res = await fetch(`http://localhost:8000/api/v1/product/singlepro/${params.slug}`)
   if(!res.ok){
     throw new Error("failed to fetch data")
   }
