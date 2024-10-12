@@ -17,7 +17,7 @@ const Login = () => {
     console.log('Success:', values);
     setLoading(true)
     try{
-      let data = await axios.post('https://fullstack-mernian-2204.onrender.com/api/V1/auth/login',{
+      let data = await axios.post('http://localhost:8000/api/V1/auth/login',{
         email: values.email,
         password: values.password
       },{

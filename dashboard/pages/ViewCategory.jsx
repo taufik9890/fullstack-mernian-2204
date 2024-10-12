@@ -10,7 +10,7 @@ const ViewCategory = () => {
     // console.log(initialValue[0].value);
     console.log(values);
     
-    let cData =  await axios.post("https://fullstack-mernian-2204.onrender.com/api/v1/product/editcat", {
+    let cData =  await axios.post("http://localhost:8000/api/v1/product/editcat", {
       oldName: initialValue[0].value,
       name: values.name
     })
@@ -47,7 +47,7 @@ const ViewCategory = () => {
   useEffect(() => {
     async function allcategory() {
       let data = await axios.get(
-        "https://fullstack-mernian-2204.onrender.com/api/v1/product/viewcategory"
+        "http://localhost:8000/api/v1/product/viewcategory"
       );
       let categoryData = [];
 
@@ -84,7 +84,7 @@ const ViewCategory = () => {
     console.log(record);
 
     let data = await axios.post(
-      "https://fullstack-mernian-2204.onrender.com/api/V1/product/approvecategory",
+      "http://localhost:8000/api/V1/product/approvecategory",
       {
         id: record.key,
         status: record.status,
@@ -95,7 +95,7 @@ const ViewCategory = () => {
 
   const handleDelete = async (id) => {
     let data = await axios.delete(
-      `https://fullstack-mernian-2204.onrender.com/api/V1/product/deletecategory/${id}`
+      `http://localhost:8000/api/V1/product/deletecategory/${id}`
     );
     console.log(data);
   };
@@ -198,7 +198,7 @@ const ViewCategory = () => {
       dataIndex: "image",
       key: "image",
       render: (_, record) => (
-        <img width={50} src={`https://fullstack-mernian-2204.onrender.com${record.image}`} />
+        <img width={50} src={`http://localhost:8000${record.image}`} />
         //   <a>Invite {record.image}</a>
       ),
     },

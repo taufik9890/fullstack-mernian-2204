@@ -18,7 +18,7 @@ const AddProduct = () => {
   const onFinish = async (values) => {
     console.log('Success:', values.name.split(" ").join("-").toLowerCase());
     let data = await axios.post(
-      "https://fullstack-mernian-2204.onrender.com/api/v1/product/createproduct",
+      "http://localhost:8000/api/v1/product/createproduct",
       {
         name: values.name,
         description: description,

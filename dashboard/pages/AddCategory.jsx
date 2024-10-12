@@ -17,7 +17,7 @@ const AddCategory = () => {
   const onFinish = async (values) => {
     // console.log('Success:', values);
     let data = await axios.post(
-      "https://fullstack-mernian-2204.onrender.com/api/v1/product/createcategory",
+      "http://localhost:8000/api/v1/product/createcategory",
       {
         name: values.name,
         avatar: image

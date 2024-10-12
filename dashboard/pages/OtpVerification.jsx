@@ -11,7 +11,7 @@ const OtpVerification = () => {
   console.log(params.email);
   const onFinish = async (values) => {
     console.log('Success:', values.otp);
-    let data = await axios.post('https://fullstack-mernian-2204.onrender.com/api/V1/auth/otpverification',{
+    let data = await axios.post('http://localhost:8000/api/V1/auth/otpverification',{
         email: params.email,
         otp: values.otp
       }

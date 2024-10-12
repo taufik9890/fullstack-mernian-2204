@@ -28,7 +28,7 @@ const AddSubCategory = () => {
   useEffect(() => {
     async function allcategory() {
       let data = await axios.get(
-        "https://fullstack-mernian-2204.onrender.com/api/v1/product/viewcategory");
+        "http://localhost:8000/api/v1/product/viewcategory");
         let categoryData = []
 
         data.data.map((item)=>{
