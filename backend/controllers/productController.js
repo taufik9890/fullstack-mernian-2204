@@ -6,7 +6,7 @@ let productController = async (req, res)=>{
         const {name,description, slug} = req.body
         // console.log(req.file);
         console.log(`/uploads/${req.file.filename}`);
-
+ 
     
             let product = new Product({
                 name: name,
