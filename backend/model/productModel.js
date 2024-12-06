@@ -5,7 +5,10 @@ const productSchema = new Schema({
     name: String,
     description: String,
     image: String,
-    slug: String
+    regularprice: String,
+    discountprice: String,
+    slug: String,
+    
     // status:{
     //     type: String,
     //     enum: ["approve", "waiting", "reject"],

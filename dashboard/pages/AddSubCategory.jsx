@@ -34,7 +34,7 @@ const AddSubCategory = () => {
         data.data.map((item)=>{
           categoryData.push({
             value: item._id,
-            label: item.name 
+            label: item.name
           })
         })
 
