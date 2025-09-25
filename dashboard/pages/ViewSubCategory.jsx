@@ -8,7 +8,7 @@ const ViewSubCategory = () => {
     const [subCategoryList, setSubCategoryList] = useState([])
 
 
-
+ 
     useEffect(() => {
         async function allsubcategory() {
           let data = await axios.get(
@@ -20,9 +20,11 @@ const ViewSubCategory = () => {
                 key: item._id,
                 name: item.name,
                 status: item.status,
-                category: item.categoryId.name
+                category: item.categoryId
               },)
+              console.log(item);
             })
+            
     
             setSubCategoryList(subCategoryData)
           console.log("hello", data.data);
@@ -68,7 +70,7 @@ const ViewSubCategory = () => {
 
 
    
-
+ 
 
   return (
     

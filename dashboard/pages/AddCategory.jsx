@@ -37,7 +37,7 @@ const AddCategory = () => {
       <Form
         name="basic"
         labelCol={{
-          span: 8,
+          span: 8, 
         }}
         wrapperCol={{
           span: 16,

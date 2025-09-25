@@ -5,9 +5,9 @@ const productSchema = new Schema({
     name: String,
     description: String,
     image: String,
-    regularprice: String,
-    discountprice: String,
-    slug: String,
+    regularprice: {type: Number, required: true},
+    discountprice: {type: Number, required: true},
+    slug: String, 
     
     // status:{
     //     type: String,

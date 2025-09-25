@@ -10,7 +10,7 @@ import PackageSVG from "../../../public/svg/PackageSVG";
 import NavTab from "./navTab";
 import ImageSlider from "./imgSlider";
 
-const ViewProduct = () => {
+const ViewProduct = ({posts}) => {
   return (
     <>
       <div className="my-5">

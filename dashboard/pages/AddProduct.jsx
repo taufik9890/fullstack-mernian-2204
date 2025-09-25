@@ -47,25 +47,25 @@ const AddProduct = () => {
       description: description,
       avatar: image,
       regularprice: values.regularprice,
-      discount: values.discount,
+      discountprice: values.discountprice,
       slug: values.name.split(" ").join("-").toLowerCase()
     },);
-    // let data = await axios.post(
-    //   "http://localhost:8000/api/v1/product/createproduct",
-    //   {
-    //     name: values.name,
-    //     description: description,
-    //     avatar: image,
-    //     regularprice: values.regularprice,
-    //     discount: values.discount,
-    //     slug: values.name.split(" ").join("-").toLowerCase()
-    //   },
-    //   {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   }
-    // );
+    let data = await axios.post(
+      "http://localhost:8000/api/v1/product/createproduct",
+      {
+        name: values.name,
+        description: description,
+        avatar: image,
+        regularprice: values.regularprice,
+        discountprice: values.discountprice,
+        slug: values.name.split(" ").join("-").toLowerCase()
+      },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     console.log(data);
   };
   const onFinishFailed = (errorInfo) => {
@@ -144,7 +144,7 @@ const AddProduct = () => {
 
         <Form.Item
           label="Product Discount in Taka"
-          name="discount"
+          name="discountprice"
           rules={[
             {
               required: true,

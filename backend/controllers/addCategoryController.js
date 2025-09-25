@@ -1,7 +1,7 @@
 const Category = require('../model/categoryModel')
 
 let addCategoryController = async (req, res)=>{
-    
+     
     try{ 
         const {name} = req.body
         console.log(name.toLowerCase());
@@ -27,7 +27,7 @@ let addCategoryController = async (req, res)=>{
     catch(error){
 console.log(error.message);
     }
-  
+   
 
 }
 module.exports = addCategoryController

@@ -9,14 +9,14 @@ const  getData = async (res)=>{
     const data = await fetch("http://localhost:8000/api/v1/product/viewproduct").then(
         (res)=> res.json()
     )
-    console.log(data);
+    console.log('everything', data);
     return data
 
 }
 
 async function  NewArraivals() {
     let data = await getData()
-    console.log(data);
+    // console.log('everything', data);
     
 
   return (

@@ -31,21 +31,9 @@ const Login = () => {
       setmsg(data.data.success)
 
       dispatch(activeUser(data.data))
-      localStorage.setItem('user',JSON.stringify(data.data))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      localStorage.setItem('user',JSON.stringify(data.data)).then(()=>{
+        navigate('/dashboard')
+      })
 
 
 
