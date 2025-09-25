@@ -33,6 +33,9 @@ const ViewProduct = () => {
           name: item.name,
           description: details,
           image: item.image,
+          regularprice: item.regularprice,
+          discountprice: item.discountprice
+
         });
       });
 
@@ -69,6 +72,22 @@ const ViewProduct = () => {
       render: (_, record) => (
         <div dangerouslySetInnerHTML={{ __html: record.description }}></div>
       ),
+    },
+    {
+      title: "Regular Price",
+      dataIndex: "regularprice",
+      key: "regularprice",
+      // render: (_, record) => (
+      //   <div dangerouslySetInnerHTML={{ __html: record.regularprice }}></div>
+      // ),
+    },
+    {
+      title: "Discount Price",
+      dataIndex: "discountprice",
+      key: "discountprice",
+      // render: (_, record) => (
+      //   <div dangerouslySetInnerHTML={{ __html: record.discountprice }}></div>
+      // ),
     },
     {
       title: "Image",

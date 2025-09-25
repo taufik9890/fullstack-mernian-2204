@@ -22,7 +22,7 @@ const AddSubCategory = () => {
   };
 
 
-
+ 
   const [categoryList, setCategoryList] = useState([])
   const [categoryId, setCategoryId] = useState("")
   useEffect(() => {
@@ -85,7 +85,7 @@ const AddSubCategory = () => {
 
       <Form.Item>
         <Select
-          defaultValue={categoryList[0]}
+          defaultValue={categoryList[1]}
           style={{
             width: 120,
           }}

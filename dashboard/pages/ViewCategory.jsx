@@ -5,7 +5,7 @@ import axios from "axios";
 const ViewCategory = () => {
   const [initialValue, setInitialValue] = useState([]);
   let [refetch, setRefetch] = useState(false)
-
+ 
   const onFinish = async (values) => {
     // console.log(initialValue[0].value);
     console.log(values);
@@ -120,7 +120,7 @@ const ViewCategory = () => {
       dataIndex: "action",
       key: "action",
       render: (_, record) => (
-        <>
+        <> 
           <button onClick={() => handleStatus(record)}>
             {record.status === "waiting" ? "Approve" : "Reject"}
           </button>

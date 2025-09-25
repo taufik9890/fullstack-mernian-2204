@@ -3,7 +3,7 @@ const Product = require('../model/productModel')
 let productController = async (req, res)=>{
 
      
-        const {name,description, slug} = req.body
+        const {name,description, slug, regularprice, discountprice} = req.body
         // console.log(req.file);
         console.log(`/uploads/${req.file.filename}`);
  
@@ -12,6 +12,8 @@ let productController = async (req, res)=>{
                 name: name,
                 description: description,
                 image: `/uploads/${req.file.filename}`,
+                regularprice: regularprice,
+                discountprice: discountprice,
                 slug: slug
             })
     

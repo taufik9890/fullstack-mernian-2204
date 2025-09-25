@@ -1,7 +1,11 @@
+'use client'
+
 import React, { useState } from 'react'
 import Images from 'next/image'
 
-function Productdetailsright() {
+
+
+async function  Productdetailsright  () {
   const [count, setCount] = useState(0)
 
   const handleminusclick = ()=> {
@@ -15,15 +19,28 @@ function Productdetailsright() {
     setCount(count + 1)
   }
 
+
+   const data = await fetch('http://localhost:8000/api/v1/product/viewproduct')
+  // const posts = await data.json()
+  console.log('product', data);
+  
+
+  
+
   return (
     <div className='prdct-dtls-right'>
       <div className='breadcrumb'>
         <ul>
           <li><a href='/'>Home</a></li>
           <li><a href='/pages/product'>Product</a></li>
-          <li>Wireless Microphone</li>
+          <li>Wireless Microphonesss</li>
         </ul>
       </div>
+      <ul>
+      {/* {posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))} */}
+    </ul>
 
       <div className='ratings'>
         <div className='rate-star'>

@@ -10,6 +10,7 @@ import Collection from './collection'
 import TopRateProduct from './toprateproduct'
 import FooterElements from './footerelements'
 import Container from '../container/Container'
+import Procard from './procard'
 
 function Homepart() {
   return (
@@ -19,6 +20,7 @@ function Homepart() {
         <Hero/>
         <Category/>
         <NewArraivals/>
+        <Procard/>
         <FlashSale/>
         <Companyname/>
         <Quality/>
