@@ -5,9 +5,18 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import { useCountdown } from 'react-countdown-circle-timer'
 import Flashsalesecpart from './flashsalesecpart'
 
-function FlashSale() {
+function FlashSale({posts}) {
+    let ftime = posts[0].time
+
+    let [endTime, setEndTime] = useState(ftime)
     const stratTime = Date.now() / 1000;
-    const endTime = stratTime + 243248;
+    const endTimeStamp = new Date(endTime).getTime() / 1000
+    const remainingTime = endTimeStamp - stratTime
+
+
+// "Jan 5, 2030 15:37:25"
+
+    // const endTime = stratTime + 243248;
 
     const minuteSeconds = 60;
     const hourSeconds = 3600;
@@ -33,7 +42,6 @@ function FlashSale() {
     const getTimeHours = (time) => ((time % daySeconds) / hourSeconds) | 0;
     const getTimeDays = (time) => (time / daySeconds) | 0;
 
-    const remainingTime = endTime - stratTime;
     const days = Math.ceil(remainingTime / daySeconds);
     const daysDuration = days * daySeconds;
 
@@ -107,7 +115,7 @@ function FlashSale() {
             </div>
         </div>
         <div>
-            <Flashsalesecpart/>
+            <Flashsalesecpart posts={posts}/>
         </div>
     </div>
   )

@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import './style.css'
 import Images from 'next/image'
 import Productdetailsright from "./productdetailsright";
+import Image from "next/image";
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -49,7 +50,10 @@ function SampleNextArrow(props) {
     );
   }
 
-function Productdetails() {
+function Productdetails({posts, re}) {
+  console.log('posts2', posts);
+  console.log(re);
+  
     const [nav1, setNav1] = useState(null);
     const [nav2, setNav2] = useState(null);
     let sliderRef1 = useRef(null);
@@ -74,55 +78,45 @@ function Productdetails() {
       };
   
     useEffect(() => {
-      setNav1(sliderRef1);
-      setNav2(sliderRef2);
+      setNav1(sliderRef1.current);
+      setNav2(sliderRef2.current);
     }, []);
   return (
     <div className='product-all-details'>
         <div className='product-elements'>
             <div className='prdct-items'>
-                <div className='prdct-img'>
-                    <Slider asNavFor={nav2} ref={slider => (sliderRef1 = slider)} {...settings}>
-                        <div>
-                            <Images src='/offers_1.png' width={750} height={500} alt="product-img"/>
-                        </div>
-                        <div>
-                            <Images src='/Offers_3.png' width={750} height={500} alt="product-img"/>
-                        </div>
-                        <div>
-                            <Images src='/Offers_2.png' width={750} height={500} alt="product-img"/>
-                        </div>
-                        <div>
-                            <Images src='/Offers_4.png' width={750} height={500} alt="product-img"/>
-                        </div>
+                <div className='prdct-img' >
+                    <Slider asNavFor={nav2 || undefined} ref={sliderRef1} {...settings}>
+                      {
+                        posts[0].image.map(item=>(
+                          <div >
+                            <Image src={`http://localhost:8000${item}`} width={750} height={500} alt="product-img"/>
+                          </div>
+                        ))
+                      }
                     </Slider>
                     <div className="sec-slide">
                         <Slider
-                            asNavFor={nav1}
-                            ref={slider => (sliderRef2 = slider)}
+                            asNavFor={nav1 || undefined}
+                            ref={sliderRef2}
                             slidesToShow={3}
                             swipeToSlide={true}
                             focusOnSelect={true}
                             {...settingssecond}
-                        >
-                            <div>
-                                <Images src='/offers_1.png' width={150} height={150} alt="product-img"/>
-                            </div>
-                            <div>
-                                <Images src='/Offers_3.png' width={150} height={150} alt="product-img"/>
-                            </div>
-                            <div>
-                                <Images src='/Offers_2.png' width={150} height={150} alt="product-img"/>
-                            </div>
-                            <div>
-                                <Images src='/Offers_4.png' width={150} height={150} alt="product-img"/>
-                            </div>
+                        >{
+                posts[0].image.map(item=>(
+
+                        <div>
+                            <Image src={`http://localhost:8000${item}`} width={150} height={150} alt="product-img"/>
+                        </div>
+                ))}
                         </Slider>
                     </div>
                     </div>
+
                 </div>
             <div className='prdct-details'>
-                <Productdetailsright/>
+                <Productdetailsright posts={posts} re={re}/>
             </div>
             </div>
         </div>

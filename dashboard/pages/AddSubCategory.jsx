@@ -6,6 +6,14 @@ const AddSubCategory = () => {
   // const handleChange = (value) => {
   //   console.log(`selected ${value}`);
   // };
+  
+    const [image, setImage] = useState({});
+    
+    
+  const handleChange = (e) => {
+    setImage(e.target.files[0]);
+  };
+
   const onFinish = async (values) => {
     // console.log('Success:', values);
     let data = await axios.post(
@@ -13,6 +21,11 @@ const AddSubCategory = () => {
       {
         name: values.name,
         categoryId: categoryId,
+        avatar: image
+      },{
+        headers: {
+          "Content-Type": 'multipart/form-data'
+        }
       }
     );
     console.log(data);
@@ -20,9 +33,17 @@ const AddSubCategory = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+  
+  const handleChangeCatId =(e)=>{
+    setCategoryId(e);
+  }
+
+  
 
 
- 
+  console.log(image);
+
+  
   const [categoryList, setCategoryList] = useState([])
   const [categoryId, setCategoryId] = useState("")
   useEffect(() => {
@@ -34,7 +55,8 @@ const AddSubCategory = () => {
         data.data.map((item)=>{
           categoryData.push({
             value: item._id,
-            label: item.name
+            label: item.name,
+            avatar: image
           })
         })
 
@@ -46,9 +68,6 @@ const AddSubCategory = () => {
   }, []);
 
 
-  const handleChange =(e)=>{
-    setCategoryId(e);
-  }
 
 
   return (
@@ -83,16 +102,22 @@ const AddSubCategory = () => {
         <Input />
       </Form.Item>
 
+
+              <Form.Item>
+                <Input onChange={handleChange} type="file" />
+              </Form.Item>
+      
       <Form.Item>
         <Select
           defaultValue={categoryList[1]}
           style={{
-            width: 120,
+            width: 180,
           }}
-          onChange={handleChange}
+          onChange={handleChangeCatId}
           options={categoryList}
         />
       </Form.Item>
+      
 
       <Form.Item
         wrapperCol={{

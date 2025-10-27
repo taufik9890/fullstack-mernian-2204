@@ -21,7 +21,7 @@ export default async function  Category() {
   let data = await getData()
   console.log("Data down",data);
 
-  
+   
   return (
     <div className='category-part'>
       <HeadName>Category</HeadName>
@@ -31,7 +31,7 @@ export default async function  Category() {
               
                 item.status == "approve" &&
                 <div className='items' key={i}>
-                    <Images src={`http:localhost:8000${item.image}`} width={80} height={80} alt='icon_img'/>
+                    <Images src={`http://localhost:8000${item.image}`} width={80} height={80} alt='icon_img'/>
                     <p>{item.name}</p>
                 </div>
               

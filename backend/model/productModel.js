@@ -4,10 +4,15 @@ const {Schema} = mongoose
 const productSchema = new Schema({
     name: String,
     description: String,
-    image: String,
+    image: [String],
     regularprice: {type: Number, required: true},
     discountprice: {type: Number, required: true},
     slug: String, 
+    proType: String,
+    categoryId:{
+        type: Schema.Types.ObjectId,
+        ref: "Category"
+    }
     
     // status:{
     //     type: String,

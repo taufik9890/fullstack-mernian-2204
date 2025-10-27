@@ -37,7 +37,9 @@ function SampleNextArrow(props) {
     );
   }
 
-function Flashsalesecpart() {
+function Flashsalesecpart({posts}) {
+    console.log(posts, "bigger array");
+    
     const settings = {
         dots: false,
         infinite: true,

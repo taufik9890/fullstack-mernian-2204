@@ -11,7 +11,7 @@ const ViewProduct = () => {
         "http://localhost:8000/api/v1/product/viewproduct"
       );
       let categoryData = [];
- 
+  
       data.data.map((item) => {
         let details = item.description;
         const oembedRegex = /<oembed[^>]*>/g;
@@ -95,7 +95,7 @@ const ViewProduct = () => {
       key: "image",
       render: (_, record) => (
         <img width={50} src={`http://localhost:8000${record.image}`} />
-        //   <a>Invite {record.image}</a>
+        //   <a>Invite {record.image}</a>,
       ),
     },
   ];

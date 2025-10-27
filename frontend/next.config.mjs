@@ -6,10 +6,12 @@ const nextConfig = {
                 protocol: 'http',
                 hostname: 'localhost',
                 port: '8000',
-                pathname: '/uploads/**'
+                pathname: '/**'
+                // pathname: '/uploads/**'
             }
         ]
     }
 };
 
 export default nextConfig;
+// module.exports = nextConfig;

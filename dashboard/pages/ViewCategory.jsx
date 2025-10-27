@@ -16,8 +16,6 @@ const ViewCategory = () => {
     })
 
     setRefetch(!refetch)
-    // console.log(cData);
-    
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -59,7 +57,7 @@ const ViewCategory = () => {
           image: item.image,
         });
       });
-
+ 
       setCategoryList(categoryData);
       console.log("hello", data.data);
     }

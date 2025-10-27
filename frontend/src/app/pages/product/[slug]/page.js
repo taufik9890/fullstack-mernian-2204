@@ -1,10 +1,12 @@
 import ProductPart from '@/component/productpart'
 import React from 'react'
 
-function Productpage() {
+function Productpage({params}) {
+  console.log(params.slug);
+  
   return (
     <div>
-        <ProductPart/>
+        <ProductPart slug={params.slug}/>
     </div>
   )
 }
