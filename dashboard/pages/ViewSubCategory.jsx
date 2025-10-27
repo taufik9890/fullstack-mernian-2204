@@ -20,12 +20,11 @@ const ViewSubCategory = () => {
                 key: item._id,
                 name: item.name,
                 status: item.status,
-                category: item.categoryId
+                category: item.categoryId?.name,
+                image: item.image,
               },)
-              console.log(item);
+              console.log('every item', item.categoryId?.name);
             })
-            
-    
             setSubCategoryList(subCategoryData)
           console.log("hello", data.data);
         }
@@ -66,6 +65,14 @@ const ViewSubCategory = () => {
           dataIndex: 'category',
           key: 'category',
         },
+        {
+      title: "Image",
+      dataIndex: "image",
+      key: "image",
+      render: (_, record) => (
+        <img width={50} src={`http://localhost:8000${record.image}`} />
+      ),
+    },
       ];
 
 

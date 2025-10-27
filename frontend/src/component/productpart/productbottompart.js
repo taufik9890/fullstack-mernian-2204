@@ -2,11 +2,11 @@ import React from 'react'
 import Reviewpart from './reviewpart'
 import Reivewformpart from './reivewformpart'
 
-function Productbottompart() {
+function Productbottompart(posts) {
   return (
     <div className='prdct-btm-part'>
-      <Reviewpart/>
-      <Reivewformpart/>
+      <Reviewpart posts={posts}/>
+      <Reivewformpart posts={posts}/>
     </div>
   )
 }

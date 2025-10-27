@@ -5,13 +5,13 @@ import { categoryData } from "@/data/homeData";
 
 
 
-async function getData (res){
-  const data = await fetch("http://localhost:8000/api/v1/product/viewcategory").then(
-    (res)=> res.json()
-)
-return data
-}
-
+// async function getData (res){
+//   const data = await fetch("http://localhost:8000/api/v1/product/viewcategory").then(
+//     (res)=> res.json()
+// )
+// return data
+// }
+  
 
 const Category = () => {
 

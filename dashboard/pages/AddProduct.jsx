@@ -7,17 +7,44 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const AddProduct = () => {
-  const [image, setImage] = useState({});
+  const [image, setImage] = useState([]);
 
   const [description, setDescription] = useState('')
 
   const [showSlug, setShowSlug] = useState("")
 
   const userInfo = useSelector((state) => state.user.value);
+  const [protype, setProtype] = useState([
+    {
+      value: "normal",
+      label: "normal"
+    },
+    {
+      value: "top",
+      label: "top"
+    },
+    {
+      value: "new",
+      label: "new"
+    },
+    {
+      value: "feature",
+      label: "feature"
+    },
+    {
+      value: "flash",
+      label: "flash"
+    },
+  ])
 
 
-  
+
   const [categoryList, setCategoryList] = useState([])
+  const [categoryId, setCategoryId] = useState("")
+
+  const [subCategoryList, setSubCategoryList] = useState([])
+  const [type, setType] = useState("")
+
 
   useEffect(() => {
     async function allcategory() {
@@ -42,27 +69,43 @@ const AddProduct = () => {
  
   const onFinish = async (values) => {
     // console.log('Success:', values.name.split(" ").join("-").toLowerCase());
-    console.log('Success:', {
-      name: values.name,
-      description: description,
-      avatar: image,
-      regularprice: values.regularprice,
-      discountprice: values.discountprice,
-      slug: values.name.split(" ").join("-").toLowerCase()
-    },);
+    // console.log('Success:', {
+    //   name: values.name,
+    //   description: description,
+    //   avatar: image,
+    //   regularprice: values.regularprice,
+    //   discountprice: values.discountprice,
+    //   slug: values.name.split(" ").join("-").toLowerCase(),
+    //   categoryId: categoryId,
+
+    // },);
+
+    let formData = new FormData()
+    formData.append("name", values.name)
+    formData.append("description", description)
+    formData.append("regularprice", values.regularprice)
+    formData.append("discountprice", values.discountprice)
+    formData.append("slug", values.name.split(" ").join("-").toLowerCase())
+    formData.append("categoryId", categoryId)
+    formData.append("proType", type)
+    image.forEach(item=>{
+      formData.append("photos", item)
+    })
     let data = await axios.post(
       "http://localhost:8000/api/v1/product/createproduct",
-      {
-        name: values.name,
-        description: description,
-        avatar: image,
-        regularprice: values.regularprice,
-        discountprice: values.discountprice,
-        slug: values.name.split(" ").join("-").toLowerCase()
-      },
+      // {
+      //   name: values.name,
+      //   description: description,
+      //   avatar: image,
+      //   regularprice: values.regularprice,
+      //   discountprice: values.discountprice,
+      //   slug: values.name.split(" ").join("-").toLowerCase(),
+      //   categoryId: categoryId,
+      // }
+      formData,
       {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "multipart/form-data", 
         },
       }
     );
@@ -73,11 +116,37 @@ const AddProduct = () => {
   };
 
   const handleChange = (e) => {
-    setImage(e.target.files[0]);
+    console.log(e.target.files);
+    let photoarr = Array.from(e.target.files)
+    setImage(photoarr)
+
+    
+    // setImage(e.target.files[0]);
   };
+  
+   const handleChangeCatId = async (e)=>{
+    
+
+    let data = await axios.get(
+        `http://localhost:8000/api/v1/product/singlesubcategory/${e}`);
+        let categoryData = []
+
+        data.data.map((item)=>{
+          categoryData.push({
+            value: item._id,
+            label: item.name
+          })
+        })
+
+        setSubCategoryList(categoryData)
+        setCategoryId(e);
+  }
 
   const handleSLug = (e) =>{
     setShowSlug(e.target.value.split(" ").join("-").toLowerCase())
+  }
+  const handleChangeType = (e) =>{
+    setType(e);
   }
 
 
@@ -138,7 +207,7 @@ const AddProduct = () => {
             },
           ]}
         >
-          <Input  />
+          <Input  type="number"/>
         </Form.Item>
 
 
@@ -152,20 +221,44 @@ const AddProduct = () => {
             },
           ]}
         >
-          <Input  />
+          <Input type="number" />
         </Form.Item>
-
+ 
+        <Form.Item>
+        <Select
+          defaultValue={"Select Product Type"}
+          style={{
+            width: 180,
+          }}
+          onChange={handleChangeType}
+          options={protype}
+        />
+      </Form.Item>
         
         <Form.Item>
         <Select
-          defaultValue={categoryList[0]}
+          defaultValue={"Select Category"}
           style={{
-            width: 120,
+            width: 180,
           }}
-          onChange={handleChange}
+          onChange={handleChangeCatId}
           options={categoryList}
         />
       </Form.Item>
+        {
+          subCategoryList.length > 0 && 
+          <Form.Item>
+        <Select
+          defaultValue={"Select Subcategory"}
+          style={{
+            width: 180,
+          }}
+          onChange={handleChangeCatId}
+          options={subCategoryList}
+        />
+      </Form.Item>
+        }
+        
 
 
         
@@ -188,7 +281,7 @@ const AddProduct = () => {
         />
 
         <Form.Item>
-          <Input onChange={handleChange} type="file" />
+          <Input onChange={handleChange} type="file" multiple />
         </Form.Item>
 
 

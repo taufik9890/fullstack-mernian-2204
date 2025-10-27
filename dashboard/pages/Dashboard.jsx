@@ -44,6 +44,7 @@ const Dashboard = () => {
     getItem("Product", "sub2", <AppstoreOutlined />, [
       getItem("Add Product", "/dashboard/addproduct"),
       getItem("View Product", "/dashboard/viewproduct"),
+      getItem("Add Flashsale", "/dashboard/addflashsale"),
     ]),
     
     userInfo.role !=  "User" &&

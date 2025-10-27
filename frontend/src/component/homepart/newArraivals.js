@@ -1,24 +1,20 @@
+
 import React from 'react'
 import HeadName from '../headname/headname'
 import Headviewall from '../headviewall/headviewall'
 import './style.css'
-import Images from 'next/image'
+import Image from 'next/image'
 import { newArraivals } from './categoryData'
 
 const  getData = async (res)=>{
-    const data = await fetch("http://localhost:8000/api/v1/product/viewproduct").then(
-        (res)=> res.json()
-    )
-    console.log('everything', data);
-    return data
+    const posts = await fetch('http://localhost:8000/api/v1/product/viewproduct')
+  .then(res => res.json())
 
+return posts
 }
 
 async function  NewArraivals() {
-    let data = await getData()
-    // console.log('everything', data);
-    
-
+    let posts = await getData()
   return (
     <div className='arrivals-part'>
         <Headviewall>
@@ -27,20 +23,24 @@ async function  NewArraivals() {
         </Headviewall>
         <div className='arraivals-items'>
             {
-                newArraivals.map((item, i)=>(
+                posts.map((item, i)=>(
+                    item.proType == 'new'  &&
+                    
                     <div className='items-list' key={i}>
                         <div className='items-img'>
-                            <Images src={item.img} width={230} height={290} alt='newArraivals'/>
+                            
+                            <Image src={`http://localhost:8000${item.image[0]}`}  width={230} height={290} alt={item.name}/> 
+                            {/* <img src={`http://localhost:8000${Array.isArray(item.image) ? item.image[0] : item.image}`} alt="" /> */}
                             <div className='item-tag'>
-                                <p>{item.tag}</p>
+                                {item.proType}
                             </div>
                         </div>
                         <div className='item-text'>
-                            <h4>{item.devicename}</h4>
-                            <h3>{item.rate}</h3>
+                            <h4>{item.name}</h4>
+                            <h3>{item.regularprice} tk</h3>
                             <div className='rating'>
-                                <Images src={item.star} width={20} height={20} alt='star'/>
-                                <p>{item.sold}</p>
+                                {/* <Images src={item.star} width={20} height={20} alt='star'/> */}
+                                <p>{item.discountprice} tk</p>
                             </div>
                         </div>
                     </div>

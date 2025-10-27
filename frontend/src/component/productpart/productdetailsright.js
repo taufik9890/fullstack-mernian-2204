@@ -1,29 +1,47 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Images from 'next/image'
 
 
 
-async function  Productdetailsright  () {
+ function  Productdetailsright  ({posts,re}) {
+  console.log('posts3', posts);
+  console.log(re);
+  
   const [count, setCount] = useState(0)
-
+  const [products, setProducts] = useState([]) 
   const handleminusclick = ()=> {
-    setCount(count - 1)
-    if(count == 0){
-      setCount(0)
-    }
+    // setCount(count - 1)
+    // if(count == 0){
+    //   setCount(0)
+    // }
+    setCount(prev => (prev > 0 ? prev - 1 : 0))
   }
 
   const handleplasclick = ()=> {
-    setCount(count + 1)
+    // setCount(count + 1)
+    setCount(prev => prev + 1)
   }
-
-
-   const data = await fetch('http://localhost:8000/api/v1/product/viewproduct')
-  // const posts = await data.json()
-  console.log('product', data);
   
+  //  const data = await fetch('http://localhost:8000/api/v1/product/viewproduct')
+  // // const posts = await data.json()
+  // console.log('product', data);
+  
+   useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const res = await fetch('http://localhost:8000/api/v1/product/viewproduct')
+        const data = await res.json()
+        setProducts(data)
+        console.log('product', data)
+      } catch (err) {
+        console.error('Error fetching products:', err)
+      }
+    }
+
+    fetchProducts()
+  }, [])
 
   
 
@@ -46,7 +64,7 @@ async function  Productdetailsright  () {
         <div className='rate-star'>
           <p>5.0</p>
           <Images src='/rating.png' width={100} height={20} alt='rating-img' />
-          <span>Review(12) | Sold 99</span>
+          <span>Review({re}) | Sold 99</span>
         </div>
         <div className='star-wish'>
           <Images src='/Love (1).png' width={22} height={22} alt='rate-img'/>
@@ -55,11 +73,19 @@ async function  Productdetailsright  () {
       </div>
 
       <div className='product-heading'>
-        <h3>Wireless Microphone</h3>
+        <h3>{posts?.[0]?.name || 'No name available'}</h3>
         <div className='rate-percent'>
-          <p>$29.00</p>
-          <span>$99.00</span>
-          <button>Save 50%</button>
+          {
+            posts[0].discountprice ? 
+            <>
+            <p>${posts[0].regularprice - posts[0].discountprice}</p>
+          <span>${posts[0].regularprice}</span>
+          <button>Save {Math.floor((posts[0].discountprice/posts[0].regularprice)*100)}%</button>
+            </>
+            :
+            <p>$29.00</p>
+          }
+          
         </div>
         <div className='delivery-voucher-stock'>
           <div className='delivery'>
@@ -79,7 +105,8 @@ async function  Productdetailsright  () {
 
       <div className='product-description'>
         <h4>Description</h4>
-        <p>Wireless Microphone with the new style, shockproof, clear voice reception that suitable for recording, online meeting, vlogging, and calling. Free casing with high-quality zipper.</p>
+        <p>{posts[0].description}</p>
+        {/* <p>Wireless Microphone with the new style, shockproof, clear voice reception that suitable for recording, online meeting, vlogging, and calling. Free casing with high-quality zipper.</p> */}
       </div>
 
     <div className='qnty-chrt'>

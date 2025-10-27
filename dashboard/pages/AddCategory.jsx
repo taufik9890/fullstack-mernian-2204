@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import axios from "axios";
 import { useSelector } from "react-redux";
-
+ 
 const AddCategory = () => {
   const userInfo = useSelector((state) => state.user.value);
   const [image, setImage] = useState({});
@@ -12,8 +12,7 @@ const AddCategory = () => {
   const handleChange = (e) => {
     setImage(e.target.files[0]);
   };
-
-
+  
   const onFinish = async (values) => {
     // console.log('Success:', values);
     let data = await axios.post(

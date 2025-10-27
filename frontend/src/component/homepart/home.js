@@ -12,7 +12,17 @@ import FooterElements from './footerelements'
 import Container from '../container/Container'
 import Procard from './procard'
 
-function Homepart() {
+const  getData = async ()=>{
+    const posts = await fetch('http://localhost:8000/api/v1/product/viewflashsale').then(res => res.json())
+
+return posts
+}
+
+
+async function Homepart() {
+  let posts = await getData()
+  console.log('new Post', posts);
+  
   return (
     <div>
       <Container>
@@ -20,8 +30,8 @@ function Homepart() {
         <Hero/>
         <Category/>
         <NewArraivals/>
-        <Procard/>
-        <FlashSale/>
+        {/* <Procard/> */}
+        <FlashSale posts={posts}/>
         <Companyname/>
         <Quality/>
         <Collection/>

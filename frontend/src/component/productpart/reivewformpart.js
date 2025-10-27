@@ -3,9 +3,19 @@ import { reviewform } from '@/validationform/Yup';
 import { useFormik } from 'formik';
 import Image from 'next/image';
 import React, { useState } from 'react'
+import ReviewStar from "review-star";
 
-function Reivewformpart() {
+import ReactStars from "react-rating-stars-component";
+import { render } from "react-dom";
 
+
+
+function Reivewformpart({posts}) {
+  console.log(posts?.posts[0]?._id, 'Toast');
+  
+  // const [reVal, SetReVal] = useState(0);
+
+const [rating, setRating] = useState(0);
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -13,13 +23,32 @@ function Reivewformpart() {
       comment: '',
     },
     validationSchema: reviewform,
-    onSubmit: values => {
+    onSubmit: async values => {
       console.log(values);
-      
+      const rawResponse = await fetch('http://localhost:8000/api/v1/product/review', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({...values, rating: rating, productId: posts?.posts[0]?._id})
+  });
+  const content = await rawResponse.json();
+  console.log(content);
     },
   });
 
   const {errors, touched} = formik;
+
+//   const ratingChanged = (newRating) => {
+//   console.log(newRating)
+// }
+
+
+  const ratingChanged = (newRating) => {
+    setRating(newRating);
+    console.log("New rating:", newRating);
+  };
 
   return (
     <div className='review-form-part'> 
@@ -46,7 +75,13 @@ function Reivewformpart() {
 
           <div className='form-rating'>
             <p>Rating</p>
-            <Image src='/rating 4.png' width={100} height={20} alt='rating'/>
+            {/* <Image src='/rating 4.png' width={100} height={20} alt='rating'/> */}
+            <ReactStars
+    count={5}
+    onChange={ratingChanged}
+    size={24}
+    activeColor="#ffd700"
+  />
           </div>
 
           <div>
@@ -59,3 +94,5 @@ function Reivewformpart() {
 }
 
 export default Reivewformpart
+
+

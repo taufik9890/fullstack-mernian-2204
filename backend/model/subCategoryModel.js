@@ -11,7 +11,8 @@ const subCategorySchema = new Schema({
     categoryId:{
         type: Schema.Types.ObjectId,
         ref: "Category"
-    }
+    },
+    image: String
 })
 
 module.exports = mongoose.model('SubCategory', subCategorySchema) 
