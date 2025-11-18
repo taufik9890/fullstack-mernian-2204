@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { newArraivals } from './categoryData'
 
 const  getData = async (res)=>{
-    const posts = await fetch('http://localhost:8000/api/v1/product/viewproduct')
+    const posts = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewproduct`)
   .then(res => res.json())
 
 return posts
@@ -29,7 +29,7 @@ async function  NewArraivals() {
                     <div className='items-list' key={i}>
                         <div className='items-img'>
                             
-                            <Image src={`http://localhost:8000${item.image[0]}`}  width={230} height={290} alt={item.name}/> 
+                            <Image src={`${process.env.NEXT_PUBLIC_BASEURL_IMG}${item.image[0]}`}  width={230} height={290} alt={item.name}/> 
                             {/* <img src={`http://localhost:8000${Array.isArray(item.image) ? item.image[0] : item.image}`} alt="" /> */}
                             <div className='item-tag'>
                                 {item.proType}

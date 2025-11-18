@@ -13,12 +13,12 @@ import Container from '../container/Container'
 import Procard from './procard'
 
 const  getData = async ()=>{
-    const posts = await fetch('http://localhost:8000/api/v1/product/viewflashsale').then(res => res.json())
+    const posts = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewflashsale`).then(res => res.json())
 
 return posts
 }
 
-
+ 
 async function Homepart() {
   let posts = await getData()
   console.log('new Post', posts);

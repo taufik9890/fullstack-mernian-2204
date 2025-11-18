@@ -37,7 +37,7 @@ const handleChange = value => {
 };
 useEffect(()=>{
      async function pro (){
-        let data = await axios.get("http://localhost:8000/api/v1/product/viewproduct")
+        let data = await axios.get(`${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/viewproduct`)
         console.log(data.data);
         let arr = []
         data.data.map((item)=>{
@@ -72,7 +72,7 @@ useEffect(()=>{
     }
     let handleSubmit = async()=>{
       try{
-         let data = await axios.post("http://localhost:8000/api/v1/product/flashsale",{
+         let data = await axios.post(`${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/flashsale`,{
             ftime: date + " "  + time,
             idList: idList
         })

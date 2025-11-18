@@ -23,15 +23,10 @@ import Images from 'next/image'
     // setCount(count + 1)
     setCount(prev => prev + 1)
   }
-  
-  //  const data = await fetch('http://localhost:8000/api/v1/product/viewproduct')
-  // // const posts = await data.json()
-  // console.log('product', data);
-  
    useEffect(() => {
     async function fetchProducts() {
       try {
-        const res = await fetch('http://localhost:8000/api/v1/product/viewproduct')
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewproduct`)
         const data = await res.json()
         setProducts(data)
         console.log('product', data)

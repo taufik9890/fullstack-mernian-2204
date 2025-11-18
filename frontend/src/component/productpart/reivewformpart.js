@@ -25,7 +25,7 @@ const [rating, setRating] = useState(0);
     validationSchema: reviewform,
     onSubmit: async values => {
       console.log(values);
-      const rawResponse = await fetch('http://localhost:8000/api/v1/product/review', {
+      const rawResponse = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/review`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

@@ -10,7 +10,7 @@ let forgotpasswordController = async (req, res) => {
     console.log(email);
 
 
-    let existingUser = await User.find({
+    let existingUser = await User.findOne({
         email: email
     }, 
     )
@@ -22,12 +22,14 @@ let forgotpasswordController = async (req, res) => {
         
     jwt.sign({ email: email }, 'shhhhh', async  function(err, token) {
         // console.log(token);
+         const frontend = `${process.env.FRONTEND_URL}/newpassword/${token}`;
         const transporter = nodemailer.createTransport({
           service: "gmail",
           auth: {
             // TODO: replace `user` and `pass` values from <https://forwardemail.net>
             user: "taufik9890@gmail.com",
-            pass: "axtp hdbs wnaw zzme",
+            pass: "fldslvrfkgfqpbar",
+            // pass: "axtp hdbs wnaw zzme",
           },
         });
         
@@ -38,7 +40,7 @@ let forgotpasswordController = async (req, res) => {
           subject: "Change you password from this link", // Subject line
           text: "This is your Verification", // plain text body
           //html: `Here is your <b>OTP: </b>${otp}`, // html body
-          html: `Here is your <a href="http://localhost:5173/newpassword/${token}">CLick here</a>`, 
+          html: `Here is your <a href=${frontend}>CLick here</a>`, 
         });
     
       });

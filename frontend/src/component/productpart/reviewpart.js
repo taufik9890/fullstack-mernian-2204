@@ -6,7 +6,7 @@ import ReactStars from "react-rating-stars-component";
 import Review from '../review/review';
 import commentImg from "../../../public/comment.jpg"
 const  getData = async (slug)=>{
-    const post = await fetch(`http://localhost:8000/api/v1/product/viewreview/${slug}`)
+    const post = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewreview/${slug}`)
   .then(res => res.json())
 
 return post

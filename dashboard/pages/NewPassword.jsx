@@ -14,7 +14,7 @@ const NewPassword = () => {
       setLoading(true);
       try {
         let data = await axios.post(
-          "http://localhost:8000/api/V1/auth/newpassword",
+          `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/auth/newpassword`,
           {
             password: values.password,
             token: param.token

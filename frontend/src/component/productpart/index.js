@@ -7,14 +7,14 @@ import Productbottompart from './productbottompart'
 
 
 const  getData = async (slug)=>{
-    const posts = await fetch(`http://localhost:8000/api/v1/product/singlepro/${slug}`)
+    const posts = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/singlepro/${slug}`)
   .then(res => res.json())
   console.log(posts);
   
 return posts
 }
 const  getReview = async (slug)=>{
-    const post = await fetch(`http://localhost:8000/api/v1/product/viewreview/${slug}`)
+    const post = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewreview/${slug}`)
   .then(res => res.json())
   console.log(post);
   

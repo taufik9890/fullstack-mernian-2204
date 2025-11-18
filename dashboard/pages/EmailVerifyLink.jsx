@@ -13,7 +13,7 @@ let navigate = useNavigate()
 
  useEffect (()=>{
  async function verify(){
-  let data = await axios.post('http://localhost:8000/api/V1/auth/linkverification',
+  let data = await axios.post(`${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/auth/linkverification`,
       {
         token: param.token,
       }

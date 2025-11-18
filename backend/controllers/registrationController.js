@@ -67,11 +67,14 @@ let registrationController = async (req, res) => {
         email: email
       }, 'shhhhh', async function (err, token) {
         // console.log(token);
+
+        const frontend = `${process.env.FRONTEND_URL}/emailverification/${token}`;
         const transporter = nodemailer.createTransport({
           service: "gmail",
           auth: {
             user: "taufik9890@gmail.com",
-            pass: "axtp hdbs wnaw zzme",
+            pass: "flds lvrf kgfq pbar",
+            // pass: "axtp hdbs wnaw zzme",
           },
         });
 
@@ -82,7 +85,7 @@ let registrationController = async (req, res) => {
           subject: "This is your Verification", // Subject line
           text: "This is your Verification", // plain text body
           //html: `Here is your <b>OTP: </b>${otp}`, // html body
-          html: `Here is your <a href="http://localhost:5173/emailverification/${token}">CLick here</a>`,
+          html: `Here is your <a href=${frontend}>CLick here</a>`,
         });
 
       });

@@ -7,7 +7,7 @@ import { CategoryData } from './categoryData'
 
 
 async function getData (res){
-  const data = await fetch("http://localhost:8000/api/v1/product/viewcategory").then(
+  const data = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewcategory`).then(
     (res)=> res.json()
 )
 // console.log("Data up",data);
@@ -31,7 +31,7 @@ export default async function  Category() {
               
                 item.status == "approve" &&
                 <div className='items' key={i}>
-                    <Images src={`http://localhost:8000${item.image}`} width={80} height={80} alt='icon_img'/>
+                    <Images src={`${process.env.NEXT_PUBLIC_BASEURL_IMG}${item.image}`} width={80} height={80} alt='icon_img'/>
                     <p>{item.name}</p>
                 </div>
               

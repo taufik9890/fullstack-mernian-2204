@@ -4,8 +4,14 @@ import './style.css'
 import { useFormik } from 'formik'
 import { buyerInfo } from '@/validationform/Yup'
 import { allprice, checkdata, totalprice } from './checkoutdata'
+import { useSearchParams } from 'next/navigation'
 
 function Checkout() {
+   const searchParams = useSearchParams()
+   const total = searchParams.get('total')
+   console.log(searchParams);
+   console.log(total);
+   
   const [isActive, setActive] = useState();
 
   const handleClick = (e) => {
@@ -25,12 +31,31 @@ function Checkout() {
             comment: ""
         }
 
-    const formik = useFormik({
+    const formik =  useFormik({
         initialValues: initialState,
         validationSchema: buyerInfo,
-        onSubmit: values => {
-          console.log(values);
-          
+         
+
+
+        onSubmit :  async values  => {
+          const sendData = {
+      ...values,
+      total,
+      paymentMethod: isActive,
+    };
+          // console.log(values);
+          const response = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/payment/createpayment`, {
+            method: "POST",
+             headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+              },
+              body: JSON.stringify(sendData),
+          })
+          const data = await response.json();
+          console.log("Payment Created:", data);
+          window.location.href = data.payment_url;
+          // console.log("Payment Created:", data.data.paymenturl);
+
         },
       });
 
@@ -155,7 +180,7 @@ function Checkout() {
                     totalprice.map((item, i)=> (
                       <div className='pro-rates' key={i}>
                           <h3>Total</h3>
-                        <p className='total-price'>{item.totalprice}</p>
+                        <p className='total-price'>{total}tk</p>
                       </div>
                     ))
                   }

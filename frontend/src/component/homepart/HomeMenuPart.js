@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaSearch } from "react-icons/fa";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { MdMailOutline } from "react-icons/md";
@@ -8,7 +8,26 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 
-function HomeMenuBar() {
+
+
+ function HomeMenuBar() {
+    const [posts, setPosts] = useState([])
+    const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewcart`)
+        const data = await res.json()
+        setPosts(data)
+      } catch (err) {
+        console.error('Error fetching data:', err)
+      }
+    }
+    fetchData()
+  }, [])
+    if (!isClient) return null
   return (
     <div className='menubar'>
         <div className='prjt-name'>
@@ -46,7 +65,13 @@ function HomeMenuBar() {
         <div className='shopping-element'>
             <div className='shopping-icon'> 
                 <MdOutlineShoppingBag/>
-                <div className='number'><p>99</p></div>
+                
+                <div className='number'><p>{isClient ? posts.length : 0}</p></div>
+                {/* {
+                    posts.map(()=>{
+                        
+                    })
+                } */}
             </div>
             <div className='shopping-icon'>
                 <MdMailOutline/>
