@@ -55,18 +55,23 @@ const Dashboard = () => {
       getItem("View Subcategory", "/dashboard/viewsubcategory"),
     ]),
     
+    // userInfo.role !=  "User" &&
+    // getItem("Discount", "sub4", <SettingOutlined />, [
+    //   getItem("Add Discount", "9"),
+    //   getItem("View Discount", "10"),
+    //   getItem("Add Subcategory", "11"),
+    //   getItem("View Subcategory", "12"),
+    // ]),
     userInfo.role !=  "User" &&
-    getItem("Discount", "sub4", <SettingOutlined />, [
-      getItem("Add Discount", "9"),
-      getItem("View Discount", "10"),
-      getItem("Add Subcategory", "11"),
-      getItem("View Subcategory", "12"),
-    ]),
-    userInfo.role ==  "User" &&
     getItem("My Profile", "sub5", <SettingOutlined />, [
       getItem("Purchase Details", "13"),
       getItem("Profile", "14"),
     ]),
+    // userInfo.role ==  "User" &&
+    // getItem("My Profile", "sub5", <SettingOutlined />, [
+    //   getItem("Purchase Details", "13"),
+    //   getItem("Profile", "14"),
+    // ]),
   ];
 
 

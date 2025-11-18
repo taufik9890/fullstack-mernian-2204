@@ -3,10 +3,11 @@ import Headviewall from '../headviewall/headviewall'
 import HeadName from '../headname/headname'
 import Images from 'next/image'
 import { collection } from './categoryData'
+import Button from '@/components/Button'
 
 
 const  getData = async (res)=>{
-    const posts = await fetch('http://localhost:8000/api/v1/product/viewproduct')
+    const posts = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewproduct`)
   .then(res => res.json())
 
 return posts
@@ -38,7 +39,7 @@ async function Collection() {
                         item.proType == 'feature' &&
                         <div className='item-details' key={i}>
                         <div className='item-img-tag'>
-                            <Images src={`http://localhost:8000${item.image[0]}`} width={376} height={333} alt='collection-img'/>
+                            <Images src={`${process.env.NEXT_PUBLIC_BASEURL_IMG}${item.image[0]}`} width={376} height={333} alt='collection-img'/>
                             <div className='sold-tag'>
                                 <p>{item.proType}</p>
                                 <p className='coll-discount'>-10%</p>
@@ -47,11 +48,11 @@ async function Collection() {
                         </div>
                         <div className='flash-sec-text'>
                             <h3>{item.name}</h3>
-                            <span className='ban-num'>{item.regularprice}</span>
-                            <span className='current-num'>{item.discountprice}</span>
+                            <span className='ban-num'>{item.regularprice} </span>
+                            <span className='current-num'> {item.regularprice-item.discountprice}</span>
                         </div>
                         <div className='add-cart'>
-                            <a href='/pages/cart'><button>Add to cart</button></a>
+                            <Button item={item._id}/>
                         </div>
                     </div>
                     ))

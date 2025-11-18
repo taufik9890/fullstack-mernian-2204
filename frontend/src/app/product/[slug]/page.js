@@ -3,15 +3,11 @@ import ViewProduct from "@/components/viewProduct/page";
 import { Container } from "react-bootstrap";
 
 const  getData = async (params)=>{
-    const data = await fetch(`http://localhost:8000/api/v1/product/singlepro/${params.slug}`)
+    const data = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/singlepro/${params.slug}`)
   const posts = await data.json()
   return posts
-
 }
-
-
 const Product = async ({params}) => {
-  
     let posts = await getData(params)
     console.log('params', params);
     // console.log('posts', posts);
@@ -31,5 +27,6 @@ const Product = async ({params}) => {
   </div>
   </>);
 };
+
 
 export default Product;

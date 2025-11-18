@@ -49,7 +49,7 @@ const AddProduct = () => {
   useEffect(() => {
     async function allcategory() {
       let data = await axios.get(
-        "http://localhost:8000/api/v1/product/viewcategory");
+        `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/viewcategory`);
         let categoryData = []
 
         data.data.map((item)=>{
@@ -92,7 +92,7 @@ const AddProduct = () => {
       formData.append("photos", item)
     })
     let data = await axios.post(
-      "http://localhost:8000/api/v1/product/createproduct",
+      `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/createproduct`,
       // {
       //   name: values.name,
       //   description: description,
@@ -128,7 +128,7 @@ const AddProduct = () => {
     
 
     let data = await axios.get(
-        `http://localhost:8000/api/v1/product/singlesubcategory/${e}`);
+        `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/singlesubcategory/${e}`);
         let categoryData = []
 
         data.data.map((item)=>{

@@ -18,7 +18,7 @@ const Registration = () => {
     console.log('Success:', values);
     setLoading(true)
     try{
-      let data = await axios.post('http://localhost:8000/api/V1/auth/registration',{
+      let data = await axios.post(`${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/auth/registration`,{
         name: values.username,
         email: values.email,
         password: values.password
@@ -161,6 +161,10 @@ const Registration = () => {
       <ResendMail/>
       </div>
       <Link to="/forgotpassword" >Forgot Password</Link>
+      <div className="login_nav">
+                <h5>Already have an account?</h5>
+                <Link to="/login"><u>Login here</u></Link>
+              </div>
     </Form.Item>
   </Form>
   

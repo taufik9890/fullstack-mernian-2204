@@ -8,7 +8,7 @@ const ViewProduct = () => {
   useEffect(() => {
     async function allcategory() {
       let data = await axios.get(
-        "http://localhost:8000/api/v1/product/viewproduct"
+        `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/viewproduct`
       );
       let categoryData = [];
   
@@ -94,7 +94,7 @@ const ViewProduct = () => {
       dataIndex: "image",
       key: "image",
       render: (_, record) => (
-        <img width={50} src={`http://localhost:8000${record.image}`} />
+        <img width={50} src={`${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL_IMG}${record.image}`} />
         //   <a>Invite {record.image}</a>,
       ),
     },

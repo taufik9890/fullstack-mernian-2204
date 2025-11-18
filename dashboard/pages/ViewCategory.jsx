@@ -10,7 +10,7 @@ const ViewCategory = () => {
     // console.log(initialValue[0].value);
     console.log(values);
     
-    let cData =  await axios.post("http://localhost:8000/api/v1/product/editcat", {
+    let cData =  await axios.post(`${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/editcat`, {
       oldName: initialValue[0].value,
       name: values.name
     })
@@ -45,7 +45,7 @@ const ViewCategory = () => {
   useEffect(() => {
     async function allcategory() {
       let data = await axios.get(
-        "http://localhost:8000/api/v1/product/viewcategory"
+        `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/viewcategory`
       );
       let categoryData = [];
 
@@ -82,7 +82,7 @@ const ViewCategory = () => {
     console.log(record);
 
     let data = await axios.post(
-      "http://localhost:8000/api/V1/product/approvecategory",
+      `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/approvecategory`,
       {
         id: record.key,
         status: record.status,
@@ -93,7 +93,7 @@ const ViewCategory = () => {
 
   const handleDelete = async (id) => {
     let data = await axios.delete(
-      `http://localhost:8000/api/V1/product/deletecategory/${id}`
+      `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/deletecategory/${id}`
     );
     console.log(data);
   };
@@ -196,7 +196,7 @@ const ViewCategory = () => {
       dataIndex: "image",
       key: "image",
       render: (_, record) => (
-        <img width={50} src={`http://localhost:8000${record.image}`} />
+        <img width={50} src={`${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL_IMG}${record.image}`} />
         //   <a>Invite {record.image}</a>
       ),
     },

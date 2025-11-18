@@ -11,7 +11,7 @@ const ForgotPassword = () => {
     setLoading(true);
     try {
       let data = await axios.post(
-        "http://localhost:8000/api/V1/auth/forgotpassword",
+        `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/auth/forgotpassword`,
         {
           email: values.email,
         },

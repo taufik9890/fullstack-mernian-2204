@@ -12,7 +12,7 @@ const ViewSubCategory = () => {
     useEffect(() => {
         async function allsubcategory() {
           let data = await axios.get(
-            "http://localhost:8000/api/v1/product/viewsubcategory");
+            `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/viewsubcategory`);
             let subCategoryData = []
     
             data.data.map((item)=>{
@@ -70,7 +70,7 @@ const ViewSubCategory = () => {
       dataIndex: "image",
       key: "image",
       render: (_, record) => (
-        <img width={50} src={`http://localhost:8000${record.image}`} />
+        <img width={50} src={`${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL_IMG}${record.image}`} />
       ),
     },
       ];

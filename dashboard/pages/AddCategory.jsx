@@ -16,7 +16,7 @@ const AddCategory = () => {
   const onFinish = async (values) => {
     // console.log('Success:', values);
     let data = await axios.post(
-      "http://localhost:8000/api/v1/product/createcategory",
+      `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/createcategory`,
       {
         name: values.name,
         avatar: image

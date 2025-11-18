@@ -8,7 +8,7 @@ const  getData = async (res)=>{
     // )
     // console.log('everything', data);
     // return data
-    const data = await fetch('http://localhost:8000/api/v1/product/viewproduct')
+    const data = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewproduct`)
   const posts = await data.json()
   return posts
 

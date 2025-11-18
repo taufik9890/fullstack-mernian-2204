@@ -17,7 +17,7 @@ const Login = () => {
     console.log('Success:', values);
     setLoading(true)
     try{
-      let data = await axios.post('http://localhost:8000/api/V1/auth/login',{
+      let data = await axios.post(`${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/auth/login`,{
         email: values.email,
         password: values.password
       },{
@@ -31,9 +31,9 @@ const Login = () => {
       setmsg(data.data.success)
 
       dispatch(activeUser(data.data))
-      localStorage.setItem('user',JSON.stringify(data.data)).then(()=>{
+      localStorage.setItem('user',JSON.stringify(data.data))
         navigate('/dashboard')
-      })
+    
 
 
 

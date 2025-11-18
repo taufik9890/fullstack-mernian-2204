@@ -90,7 +90,7 @@ function Productdetails({posts, re}) {
                       {
                         posts[0].image.map(item=>(
                           <div >
-                            <Image src={`http://localhost:8000${item}`} width={750} height={500} alt="product-img"/>
+                            <Image src={`${process.env.NEXT_PUBLIC_BASEURL_IMG}${item}`} width={750} height={500} alt="product-img"/>
                           </div>
                         ))
                       }
@@ -107,7 +107,7 @@ function Productdetails({posts, re}) {
                 posts[0].image.map(item=>(
 
                         <div>
-                            <Image src={`http://localhost:8000${item}`} width={150} height={150} alt="product-img"/>
+                            <Image src={`${process.env.NEXT_PUBLIC_BASEURL_IMG}${item}`} width={150} height={150} alt="product-img"/>
                         </div>
                 ))}
                         </Slider>

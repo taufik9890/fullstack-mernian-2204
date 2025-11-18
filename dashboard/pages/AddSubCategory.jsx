@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Checkbox, Form, Input, Select, Space } from "antd";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const AddSubCategory = () => {
   // const handleChange = (value) => {
@@ -17,7 +18,7 @@ const AddSubCategory = () => {
   const onFinish = async (values) => {
     // console.log('Success:', values);
     let data = await axios.post(
-      "http://localhost:8000/api/v1/product/createsubcategory",
+      `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/createsubcategory`,
       {
         name: values.name,
         categoryId: categoryId,
@@ -49,7 +50,7 @@ const AddSubCategory = () => {
   useEffect(() => {
     async function allcategory() {
       let data = await axios.get(
-        "http://localhost:8000/api/v1/product/viewcategory");
+        `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/viewcategory`);
         let categoryData = []
 
         data.data.map((item)=>{
@@ -128,6 +129,7 @@ const AddSubCategory = () => {
         <Button type="primary" htmlType="submit">
           Submit
         </Button>
+        
       </Form.Item>
     </Form>
   );

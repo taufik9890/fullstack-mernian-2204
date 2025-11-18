@@ -5,3 +5,8 @@ background: #c1c1c1;
     display: flex;
     gap: 5px;
 }
+.login_nav{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
