@@ -8,7 +8,9 @@ import Button from '@/components/Button'
 // import Button from '@/components/Button'
 
 const  getData = async (res)=>{
-    const posts = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewproduct`)
+    const posts = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewproduct`, {
+    cache: 'no-store',
+  })
   .then(res => res.json())
 
 return posts
