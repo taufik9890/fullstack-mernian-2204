@@ -94,9 +94,18 @@ const ViewProduct = () => {
       dataIndex: "image",
       key: "image",
       render: (_, record) => (
-        <img width={50} src={`${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL_IMG}${record.image}`} />
-        //   <a>Invite {record.image}</a>,
-      ),
+    record.image && record.image.length > 0 ? (
+      <img 
+        width={70} 
+        height={70}
+        style={{ objectFit: "cover", borderRadius: 8 }}
+        src={`${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL_IMG}${record.image[0]}`} 
+        alt={record.name}
+      />
+    ) : (
+      <span>No Image</span>
+    )
+  ),
     },
   ];
 

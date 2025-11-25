@@ -7,13 +7,14 @@ const Button = ({item}) => {
     console.log(id);
     fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/cart`, {
     method: "POST",
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    },
     body: JSON.stringify({
         productId: id,
         userId: '66389eba72e0ae8d6ed351de'
     }),
-    headers: {
-        "Content-type": "application/json; charset=UTF-8"
-    }
+    
 })
 .then(response => response.json())
 .then(json => console.log(json));

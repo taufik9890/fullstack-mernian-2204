@@ -15,7 +15,7 @@ function Cartright({cartTotal}) {
         <Accordion>
           <Accordion.Item eventKey="0">
               <Accordion.Header>
-                <h3>Have a coupon code?</h3>
+                <h3>Have a coupon code??</h3>
               </Accordion.Header>
           </Accordion.Item>
         </Accordion>

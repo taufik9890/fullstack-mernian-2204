@@ -28,7 +28,7 @@ let forgotpasswordController = async (req, res) => {
           auth: {
             // TODO: replace `user` and `pass` values from <https://forwardemail.net>
             user: "taufik9890@gmail.com",
-            pass: "fldslvrfkgfqpbar",
+            pass: "flds lvrf kgfq pbar",
             // pass: "axtp hdbs wnaw zzme",
           },
         });
