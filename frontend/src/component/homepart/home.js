@@ -14,7 +14,9 @@ import Procard from './procard'
 export const dynamic = 'force-dynamic';
 
 const  getData = async ()=>{
-    const posts = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewflashsale`).then(res => res.json())
+    const posts = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewflashsale`, {
+  next: { revalidate: 60 }  
+})
 
 return posts
 }
