@@ -1,13 +1,13 @@
 "use client";
 import Checkoutpart from '@/component/checkoutpart'
-import React from 'react'
+import React, { Suspense } from 'react'
 export const dynamic = "force-dynamic";
 
 function CheckOutPage() {
   return (
-    <div>
+    <Suspense fallback={<div style={{ padding: '50px', textAlign: 'center' }}>Loading checkout...</div>}>
       <Checkoutpart/>
-    </div>
+    </Suspense>
   )
 }
 
