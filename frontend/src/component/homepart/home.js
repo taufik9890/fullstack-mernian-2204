@@ -11,6 +11,7 @@ import TopRateProduct from './toprateproduct'
 import FooterElements from './footerelements'
 import Container from '../container/Container'
 import Procard from './procard'
+export const dynamic = 'force-dynamic';
 
 const  getData = async ()=>{
     const posts = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewflashsale`).then(res => res.json())
