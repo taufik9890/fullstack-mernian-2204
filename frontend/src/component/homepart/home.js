@@ -13,13 +13,31 @@ import Container from '../container/Container'
 import Procard from './procard'
 export const dynamic = 'force-dynamic';
 
-const  getData = async ()=>{
-    const posts = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewflashsale`, {
-  next: { revalidate: 60 }  
-})
+// const  getData = async ()=>{
+//     const posts = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewflashsale`, {
+//       next: { revalidate: 60 }  
+//     }).then(res => res.json()) 
+//     return posts
+// }
 
-return posts
+const getData = async () => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/product/viewflashsale`, {
+      next: { revalidate: 60 }  
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch flash sale data');
+    }
+    
+    const posts = await response.json();
+    return posts;
+  } catch (error) {
+    console.error('Error fetching flash sale:', error);
+    return []; // Return empty array as fallback
+  }
 }
+
 
  
 async function Homepart() {

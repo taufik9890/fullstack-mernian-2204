@@ -6,17 +6,23 @@ import { useCountdown } from 'react-countdown-circle-timer'
 import Flashsalesecpart from './flashsalesecpart'
 
 function FlashSale({posts}) {
-    let ftime = posts[0].time
+
+     if (!posts || posts.length === 0) {
+        return null; // Don't render if no data
+    }
+
+    // let ftime = posts[0].time
+    let ftime = posts[0]?.time || new Date().toISOString();
 
     let [endTime, setEndTime] = useState(ftime)
-    const stratTime = Date.now() / 1000;
+    const startTime = Date.now() / 1000;
     const endTimeStamp = new Date(endTime).getTime() / 1000
-    const remainingTime = endTimeStamp - stratTime
+    const remainingTime = endTimeStamp - startTime
 
 
 // "Jan 5, 2030 15:37:25"
 
-    // const endTime = stratTime + 243248;
+    // const endTime = startTime + 243248;
 
     const minuteSeconds = 60;
     const hourSeconds = 3600;
