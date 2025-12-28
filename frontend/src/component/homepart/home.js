@@ -34,7 +34,7 @@ const getData = async () => {
     return posts;
   } catch (error) {
     console.error('Error fetching flash sale:', error);
-    return []; // Return empty array as fallback
+    return []; 
   }
 }
 
