@@ -6,6 +6,15 @@ import { Link } from 'react-router-dom';
 
 const Registration = () => {
 
+  useEffect(() => {
+    console.log('=== ENVIRONMENT VARIABLES CHECK ===');
+    console.log('VITE_DASHBOARD_REACT_APP_BASEURL:', import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL);
+    console.log('Type:', typeof import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL);
+    console.log('Is undefined?', import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL === undefined);
+    console.log('All env vars:', import.meta.env);
+    console.log('===================================');
+  }, []);
+
 
     // const [email, setEmail] = useState('')
     // const[emailerr, setEmailErr] = useState('')
