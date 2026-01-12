@@ -12,6 +12,7 @@ mongoConfig()
 app.use(cors({
   origin: [
     'https://fullstack-mernian-2204-rxs6.vercel.app',
+    'https://fullstack-mernian-2204-srha.vercel.app', 
     'https://*.vercel.app', // Allow all Vercel preview deployments
     'http://localhost:3000',
     'http://localhost:5173'
