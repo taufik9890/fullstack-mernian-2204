@@ -3,6 +3,10 @@ const bcrypt = require('bcrypt');
 const nodemailer = require("nodemailer");
 const otpGenerator = require('otp-generator')
 var jwt = require('jsonwebtoken');
+const { Resend } = require('resend');
+
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 let registrationController = async (req, res) => {
   // res.send('this is router from registrationControllers')
@@ -66,27 +70,67 @@ let registrationController = async (req, res) => {
       jwt.sign({
         email: email
       }, 'shhhhh', async function (err, token) {
-        // console.log(token);
+        try{
 
         const frontend = `${process.env.FRONTEND_URL}/emailverification/${token}`;
-        const transporter = nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-            user: process.env.MAIL_USER,
-            pass: process.env.MAIL_PASS,
-            // pass: "flds lvrf kgfq pbar",
-          },
-        }); 
+        console.log('📧 Sending email via Resend...');
+          console.log('To:', email);
+          console.log('Link:', frontend);
+        // console.log(token);
 
 
-        const info = await transporter.sendMail({
-          from: `"MERNIAN"`, // sender address
-          to: email, // list of receivers
-          subject: "This is your Verification", // Subject line
-          text: "This is your Verification", // plain text body
-          //html: `Here is your <b>OTP: </b>${otp}`, // html body
-          html: `Here is your <a href=${frontend}>CLick here</a>`,
-        });
+
+        const { data, error } = await resend.emails.send({
+            from: 'MERNIAN <onboarding@resend.dev>',
+            to: email,
+            subject: 'Verify Your Email - MERNIAN',
+            html: `
+              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <h1 style="color: #333; text-align: center;">Welcome to MERNIAN!</h1>
+                <p style="font-size: 16px; color: #555;">Hi ${name},</p>
+                <p style="font-size: 16px; color: #555;">Thank you for registering! Please verify your email address by clicking the button below:</p>
+                <div style="text-align: center; margin: 30px 0;">
+                  <a href="${frontend}" style="background-color: #4CAF50; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-size: 16px; display: inline-block;">Verify Email</a>
+                </div>
+                <p style="font-size: 14px; color: #666;">Or copy and paste this link into your browser:</p>
+                <p style="font-size: 14px; color: #0066cc; word-break: break-all;">${frontend}</p>
+                <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
+                <p style="font-size: 12px; color: #999;">If you didn't create this account, please ignore this email.</p>
+              </div>
+            `,
+          });
+
+
+
+        // const transporter = nodemailer.createTransport({
+        //   service: "gmail",
+        //   auth: {
+        //     user: process.env.MAIL_USER,
+        //     pass: process.env.MAIL_PASS,
+        //     // pass: "flds lvrf kgfq pbar",
+        //   },
+        // }); 
+
+        // const info = await transporter.sendMail({
+        //   from: `"MERNIAN"`, // sender address
+        //   to: email, // list of receivers
+        //   subject: "This is your Verification", // Subject line
+        //   text: "This is your Verification", // plain text body
+        //   //html: `Here is your <b>OTP: </b>${otp}`, // html body
+        //   html: `Here is your <a href=${frontend}>CLick here</a>`,
+        // });
+
+
+         if (error) {
+            console.error('❌ Email sending failed:', error);
+          } else {
+            console.log('✅ Email sent successfully!');
+            console.log('Email ID:', data.id);
+          }
+          
+        } catch (error) {
+          console.error('❌ Email error:', error.message);
+        }
 
       });
       setTimeout(async () => {
@@ -96,7 +140,7 @@ let registrationController = async (req, res) => {
           otp: ''
         })
         console.log('Otp done');
-      }, 10000);
+      }, 300000);
 
 
 
