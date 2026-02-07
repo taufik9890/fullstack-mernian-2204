@@ -1,194 +1,111 @@
-const User = require('../model/userModel')
-const bcrypt = require('bcrypt');
+const User = require("../model/userModel");
+const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
-const otpGenerator = require('otp-generator')
-var jwt = require('jsonwebtoken');
-const { Resend } = require('resend');
-
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+const otpGenerator = require("otp-generator");
+const jwt = require("jsonwebtoken");
 
 let registrationController = async (req, res) => {
-  // res.send('this is router from registrationControllers')
-  // let data = {name, email, password} = req.body
+  try {
+    const { name, email, password } = req.body;
 
-  
+    console.log(name, email, password);
 
+    // ================= VALIDATION =================
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        error: "Please fill up all the fields",
+      });
+    }
 
-  const {
-    name,
-    email,
-    password
-  } = req.body
+    if (password.length < 8) {
+      return res.status(400).json({
+        error: "Password must be at least 8 characters",
+      });
+    }
 
-  console.log(name, email, password);
-  if (!name || !email || !password) {
-    return res.send({
-      error: 'Please fill up all the fields'
-    })
-  }
+    // ================= CHECK USER =================
+    const existingUser = await User.find({ email });
 
-  if (password && password.length < 8) {
-    return res.send({
-      error: 'Password is too small'
-    })
-  }
+    if (existingUser.length > 0) {
+      return res.status(409).json({
+        error: `${email} already in use`,
+      });
+    }
 
-  let existingUser = await User.find({
-    email: email
-  })
-  console.log(existingUser);
-
-
-  if (existingUser.length > 0) {
-    return res.send({
-      error: `${email} already in use`
-    })
-  } else {
-
-
-
-    let otp = otpGenerator.generate(6, {
+    // ================= OTP =================
+    const otp = otpGenerator.generate(6, {
       upperCaseAlphabets: false,
       lowerCaseAlphabets: false,
-      specialChars: false
-    });
-    console.log(otp);
-
-    bcrypt.hash(password, 10, async function (err, hash) {
-
-
-      // console.log(hash);
-      let user = new User({
-        name: name,
-        email: email,
-        password: hash,
-        otp: otp
-      })
-      user.save()
-
-      jwt.sign({
-        email: email
-      }, 'shhhhh', async function (err, token) {
-        try{
-
-        const frontend = `${process.env.FRONTEND_URL}/emailverification/${token}`;
-        console.log('📧 Sending email via Resend...');
-          console.log('To:', email);
-          console.log('Link:', frontend);
-        // console.log(token);
-
-
-
-        const { data, error } = await resend.emails.send({
-            from: 'MERNIAN <onboarding@resend.dev>',
-            to: email,
-            subject: 'Verify Your Email - MERNIAN',
-            html: `
-              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                <h1 style="color: #333; text-align: center;">Welcome to MERNIAN!</h1>
-                <p style="font-size: 16px; color: #555;">Hi ${name},</p>
-                <p style="font-size: 16px; color: #555;">Thank you for registering! Please verify your email address by clicking the button below:</p>
-                <div style="text-align: center; margin: 30px 0;">
-                  <a href="${frontend}" style="background-color: #4CAF50; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-size: 16px; display: inline-block;">Verify Email</a>
-                </div>
-                <p style="font-size: 14px; color: #666;">Or copy and paste this link into your browser:</p>
-                <p style="font-size: 14px; color: #0066cc; word-break: break-all;">${frontend}</p>
-                <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
-                <p style="font-size: 12px; color: #999;">If you didn't create this account, please ignore this email.</p>
-              </div>
-            `,
-          });
-
-
-
-        // const transporter = nodemailer.createTransport({
-        //   service: "gmail",
-        //   auth: {
-        //     user: process.env.MAIL_USER,
-        //     pass: process.env.MAIL_PASS,
-        //     // pass: "flds lvrf kgfq pbar",
-        //   },
-        // }); 
-
-        // const info = await transporter.sendMail({
-        //   from: `"MERNIAN"`, // sender address
-        //   to: email, // list of receivers
-        //   subject: "This is your Verification", // Subject line
-        //   text: "This is your Verification", // plain text body
-        //   //html: `Here is your <b>OTP: </b>${otp}`, // html body
-        //   html: `Here is your <a href=${frontend}>CLick here</a>`,
-        // });
-
-
-         if (error) {
-            console.error('❌ Email sending failed:', error);
-          } else {
-            console.log('✅ Email sent successfully!');
-            console.log('Email ID:', data.id);
-          }
-          
-        } catch (error) {
-          console.error('❌ Email error:', error.message);
-        }
-
-      });
-      setTimeout(async () => {
-        await User.findOneAndUpdate({
-          email: email
-        }, {
-          otp: ''
-        })
-        console.log('Otp done');
-      }, 300000);
-
-
-
-
-      res.send({
-        name: user.name,
-        email: user.email,
-        role: user.role
-      })
-
-
+      specialChars: false,
     });
 
+    console.log("Generated OTP:", otp);
 
+    // ================= HASH PASSWORD =================
+    const hash = await bcrypt.hash(password, 10);
+
+    const user = new User({
+      name,
+      email,
+      password: hash,
+      otp,
+      isVerified: false,
+    });
+
+    await user.save();
+
+    // ================= TOKEN =================
+    const token = jwt.sign(
+      { email },
+      process.env.JWT_SECRET,
+      { expiresIn: "15m" }
+    );
+
+    const frontend = `${process.env.FRONTEND_URL}/emailverification/${token}`;
+
+    console.log("📧 Sending verification mail...");
+    console.log("To:", email);
+    console.log("Link:", frontend);
+
+    // ================= NODEMAILER =================
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS, // APP PASSWORD
+      },
+    });
+
+    await transporter.sendMail({
+      from: `"MERNIAN" <${process.env.MAIL_USER}>`,
+      to: email,
+      subject: "Verify Your Email - MERNIAN",
+      html: `
+        <div style="font-family: Arial;">
+          <h2>Welcome to MERNIAN 👋</h2>
+          <p>Hi ${name},</p>
+          <p>Please verify your account:</p>
+          <a href="${frontend}" 
+             style="padding:10px 15px;background:#4CAF50;color:white;text-decoration:none;">
+             Verify Email
+          </a>
+          <p>${frontend}</p>
+        </div>
+      `,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Registration successful. Please check your email to verify.",
+    });
+
+  } catch (err) {
+    console.error("❌ Registration error:", err);
+
+    return res.status(500).json({
+      error: "Something went wrong. Please try again.",
+    });
   }
+};
 
-  // 8. ekhon amader email verfication korte hobe 
-  // ekhon existingUser diye User theke find korbo email field theke ekhaner email value er shathe mile kina. ekhon existingUser console.log korle ami jodi same email post kori tahole oi value ta array te pathabe ar jodi different thake tahole faka array dibe
-
-  // 9. ekhon amar password ke secure rakhar jonno amar encrypt korte hobe. ar etar best way hocche bcrypt use kora. bcrypt install korar pore ami agey require korbo tarpore oitake hashing korbo. 1st parameter e password dibo porer salt e 10 dibo. salt er kaaj hocche same password ke nanan dhoroner combination e ana. er pore hash takey console kore dekbo password kishe turn korse. ekhon ei password ta ami database e pathay dibo. ar oi password er jaygay boshabo hash
-
-  // 10. response er khetre password pathabo na amra. er jonno pura user na pathay selected kichu pathabo. karon password ta redux e save thaka lagbe
-
-  // let user = new User({
-  //   name: name,
-  //   email: email,
-  //   password: password
-  // })
-
-  // user.save()
-  // res.send(user)
-
-  console.log('database e data jabe');
-  // 7. ei console ta ashche jokhon error o thake. so error thakle toh database e data jawar kotha na. er jonnoi proti if  condition er bhitore ekta kore return deya lagbe. ar return dile nicher code dekbe na
-
-  // 8. ebar database e data rakte chai ar oitar jonno schema ready korte hobe. schema hocche ekta model
-
-
-
-
-
-
-}
-module.exports = registrationController
-// 4. middleware ki? ami kono ekta route e hit korbo oitate kono permission dibe ki dibe na eta hocche middle ware er kaaj 
-// amar shob data ami shobaike access korte dite chai na er jonno ami middleware bebohar korbo 
-
-// 5. frontend theke jokhoni kono data ashbe backend e oita hobe req.body te. toh ami distructure kore name, email ar password niye ashbo 
-
-
-// 14. ekhon amra ekta email link verify korbo. shetar jonno dashboard e ekta page create kore rakbo. ar app.jsx er route er url er piche token diye rakbo var hshabe. er jonno ekhon ekhon token create korbo jwt token theke. 
+module.exports = registrationController;
