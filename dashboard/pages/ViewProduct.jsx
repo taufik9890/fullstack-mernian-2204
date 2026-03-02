@@ -99,7 +99,8 @@ const ViewProduct = () => {
         width={70} 
         height={70}
         style={{ objectFit: "cover", borderRadius: 8 }}
-        src={`${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL_IMG}${record.image[0]}`} 
+        // src={`${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL_IMG}${record.image[0]}`} 
+        src={record.image[0]}
         alt={record.name}
       />
     ) : (

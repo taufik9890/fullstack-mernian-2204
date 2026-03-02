@@ -17,7 +17,8 @@ let addCategoryController = async (req, res)=>{
         else{ 
             let cat = new Category({
                 name: name.toLowerCase(),
-                image: `/uploads/${req.file.filename}`
+                // image: `/uploads/${req.file.filename}`
+                image: req.file.path
             })
     
             await   cat.save()

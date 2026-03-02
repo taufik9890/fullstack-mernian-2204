@@ -31,7 +31,8 @@ async function TopRateProduct() {
                 posts.map((item, i)=>(
                     item.proType == 'top' &&
                     <div className='prdct-item' key={i}>
-                    <Images src={`${process.env.NEXT_PUBLIC_BASEURL_IMG}${item.image[0]}`}  width={230} height={290} alt={item.name}/>
+                    {/* <Images src={`${process.env.NEXT_PUBLIC_BASEURL_IMG}${item.image[0]}`}  width={230} height={290} alt={item.name}/> */}
+                    <Images src={item.image[0]} width={230} height={290} alt={item.name} />
                     <div className='product-text'>
                         <h4><Link href={`pages/product/${item.slug}`}>{item.name} </Link></h4>
                         {/* <p>{item.regularprice}</p> */}

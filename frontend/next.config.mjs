@@ -8,9 +8,14 @@ const nextConfig = {
                 port: '8000',
                 pathname: '/**'
                 // pathname: '/uploads/**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'res.cloudinary.com',
+                pathname: '/**'
             }
         ],
-        domains: ['fullstack-mernian-2204.onrender.com'],
+        // domains: ['fullstack-mernian-2204.onrender.com'],
     },
     env: {
     NEXT_PUBLIC_BASEURL: process.env.NEXT_PUBLIC_BASEURL,
