@@ -18,7 +18,8 @@ let addSubCategoryController = async (req, res)=>{
             let category = new SubCategory({
                 name: name.toLowerCase(),
                 categoryId: categoryId,
-                image: `/uploads/${req.file.filename}`
+                // image: `/uploads/${req.file.filename}`
+                image: req.file.path
             })
             await   category.save()
             res.send({success: "Sub Category Created"})
