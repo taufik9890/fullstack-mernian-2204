@@ -1,20 +1,21 @@
 const express = require('express')
 const route = express.Router()
-const multer  = require('multer')
+// const multer  = require('multer')
 
+const upload = require('../../config/cloudinary.config')
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './uploads')
-    },
-    filename: function (req, file, cb) {
-        console.log(file);
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      cb(null,  uniqueSuffix + '-' + file.originalname)
-    }
-  })
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, './uploads')
+//     },
+//     filename: function (req, file, cb) {
+//         console.log(file);
+//       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+//       cb(null,  uniqueSuffix + '-' + file.originalname)
+//     }
+//   })
   
-  const upload = multer({ storage: storage })
+  // const upload = multer({ storage: storage })
 
 
 
