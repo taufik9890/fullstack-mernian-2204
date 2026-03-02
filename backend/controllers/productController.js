@@ -12,7 +12,8 @@ let productController = async (req, res)=>{
         let photoarr = []
         req.files.map(item=>{
             // console.log('files', `/uploads/${item.filename}`);
-            photoarr.push(`/uploads/${item.filename}`);
+            // photoarr.push(`/uploads/${item.filename}`);
+            photoarr.push(item.path)
             
         })
         
