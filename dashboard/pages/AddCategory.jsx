@@ -13,21 +13,36 @@ const AddCategory = () => {
     setImage(e.target.files[0]);
   };
   
+  // const onFinish = async (values) => {
+  //   // console.log('Success:', values);
+  //   let data = await axios.post(
+  //     `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/createcategory`,
+  //     {
+  //       name: values.name,
+  //       avatar: image
+  //     },{
+  //       headers: {
+  //         "Content-Type": 'multipart/form-data'
+  //       }
+  //     }
+  //   );
+  //   console.log(data);
+  // };
+
   const onFinish = async (values) => {
-    // console.log('Success:', values);
-    let data = await axios.post(
-      `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/createcategory`,
-      {
-        name: values.name,
-        avatar: image
-      },{
-        headers: {
-          "Content-Type": 'multipart/form-data'
-        }
-      }
-    );
-    console.log(data);
-  };
+  let formData = new FormData()
+  formData.append("name", values.name)
+  formData.append("avatar", image)  // must match upload.single('avatar') in route
+
+  let data = await axios.post(
+    `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/createcategory`,
+    formData,
+    { headers: { "Content-Type": 'multipart/form-data' } }
+  );
+  console.log(data);
+};
+
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
