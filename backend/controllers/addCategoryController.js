@@ -5,8 +5,9 @@ let addCategoryController = async (req, res)=>{
     try{ 
         const {name} = req.body
         console.log(name.toLowerCase());
-        console.log(`/uploads/${req.file.filename}`);
+        // console.log(`/uploads/${req.file.filename}`);
         // res.send('hello')
+        console.log(req.file.path);
     
         let existingCategory = await Category.find({name: name.toLowerCase()})
     
