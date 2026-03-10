@@ -15,7 +15,8 @@ const Proclient = ({posts}) => {
                 <Card key={i} style={{ width: '18rem' }}>
       {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
       <Image 
-      src={`${process.env.NEXT_PUBLIC_BASEURL_IMG}${item.image}`}
+      // src={`${process.env.NEXT_PUBLIC_BASEURL_IMG}${item.image}`}
+      src={item.image}
       width={285}
       height={285}
       alt='new'

@@ -45,20 +45,6 @@ const ViewProduct = () => {
 
     allcategory();
   }, []);
-
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      status: "",
-    },
-    {
-      key: "2",
-      name: "John",
-      status: "",
-    },
-  ];
-
   const columns = [
     {
       title: "Name",
