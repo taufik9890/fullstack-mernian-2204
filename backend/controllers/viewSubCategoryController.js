@@ -10,7 +10,7 @@ let viewSubCategoryController = async (req, res)=>{
     console.log("new", data);
     res.send(data)
     // res.json({ message: "Review set successful" })
-    
+     
 }
 
 module.exports = viewSubCategoryController
