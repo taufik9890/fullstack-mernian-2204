@@ -41,10 +41,9 @@ async function TopRateProduct() {
                             <span> <p><del>{item.regularprice}</del></p> {item.discountprice? (item.regularprice - item.discountprice) : item.regularprice}</span>
                         </div>
                         <div className='btn'>
-                            {/* <Button item={item._id}/> */}
                             <Button item={item._id}/>
  
-                            <Images src='/love.png' width={24} height={24} style={{marginLeft: "30px"}} alt='love'/>
+                            {/* <Images src='/love.png' width={24} height={24} style={{marginLeft: "30px"}} alt='love'/> */}
                         </div>
                     </div>
                 </div>

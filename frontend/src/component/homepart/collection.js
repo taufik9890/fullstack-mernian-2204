@@ -39,7 +39,8 @@ async function Collection() {
                         item.proType == 'feature' &&
                         <div className='item-details' key={i}>
                         <div className='item-img-tag'>
-                            <Images src={`${process.env.NEXT_PUBLIC_BASEURL_IMG}${item.image[0]}`} width={376} height={333} alt='collection-img'/>
+                            {/* <Images src={`${process.env.NEXT_PUBLIC_BASEURL_IMG}${item.image[0]}`} width={376} height={333} alt='collection-img'/> */}
+                            <Images src={item.image[0]} width={376} height={333} alt='collection-img'/>
                             <div className='sold-tag'>
                                 <p>{item.proType}</p>
                                 <p className='coll-discount'>-10%</p>
