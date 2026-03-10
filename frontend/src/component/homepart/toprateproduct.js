@@ -37,7 +37,7 @@ async function TopRateProduct() {
                         <h4><Link href={`pages/product/${item.slug}`}>{item.name} </Link></h4>
                         {/* <p>{item.regularprice}</p> */}
                         <div className='star-sold'>
-                            <Images src={item.img2} width={15} height={15} alt='star'/>
+                            {/* <Images src={item.img2} width={15} height={15} alt='star'/> */}
                             <span> <p><del>{item.regularprice}</del></p> {item.discountprice? (item.regularprice - item.discountprice) : item.regularprice}</span>
                         </div>
                         <div className='btn'>
