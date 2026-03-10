@@ -17,20 +17,31 @@ const AddSubCategory = () => {
 
   const onFinish = async (values) => {
     // console.log('Success:', values);
-    let data = await axios.post(
-      `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/createsubcategory`,
-      {
-        name: values.name,
-        categoryId: categoryId,
-        avatar: image
-      },{
-        headers: {
-          "Content-Type": 'multipart/form-data'
-        }
-      }
-    );
+    // let data = await axios.post(
+    //   `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/createsubcategory`,
+    //   {
+    //     name: values.name,
+    //     categoryId: categoryId,
+    //     avatar: image
+    //   },{
+    //     headers: {
+    //       "Content-Type": 'multipart/form-data'
+    //     }
+    //   }
+    // );
+
+    let formData = new FormData()
+  formData.append("name", values.name)
+  formData.append("avatar", image)  
+
+  let data = await axios.post(
+    `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/createsubcategory`,
+    formData,
+    { headers: { "Content-Type": 'multipart/form-data' } }
+  );
     console.log(data);
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };

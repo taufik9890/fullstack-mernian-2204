@@ -70,7 +70,9 @@ const ViewSubCategory = () => {
       dataIndex: "image",
       key: "image",
       render: (_, record) => (
-        <img width={50} src={`${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL_IMG}${record.image}`} />
+        // <img width={50} src={`${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL_IMG}${record.image}`} />
+        <img width={50} src={record.image} />
+        
       ),
     },
       ];

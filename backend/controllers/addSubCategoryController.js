@@ -6,7 +6,8 @@ let addSubCategoryController = async (req, res)=>{
         const {name, categoryId} = req.body
     
         console.log(name.toLowerCase().trim(), 'nam');
-        console.log(`/uploads/${req.file.filename}`);
+        // console.log(`/uploads/${req.file.filename}`);
+        console.log(req.file.path);
         // console.log(categoryId);
         // res.send('hello')
         let existingSubCategory = await SubCategory.find({name: name.toLowerCase().trim()})
