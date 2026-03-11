@@ -6,7 +6,7 @@ const subCategorySchema = new Schema({
     status:{
         type: String,
         enum: ["approve", "waiting", "reject"],
-        default: "waiting"
+        default: "approve"
     },
     categoryId:{
         type: Schema.Types.ObjectId,
