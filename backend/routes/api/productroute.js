@@ -40,10 +40,12 @@ const viewFlashSaleController = require('../../controllers/viewFlashSaleControll
 const reviewController = require('../../controllers/reviewController')
 const viewReviewController = require('../../controllers/viewReviewController')
 const deleteCart = require('../../controllers/deleteCart')
+const approveSubCategory = require('../../controllers/approveSubCategory')
 
 route.post('/createcategory' ,upload.single('avatar'), addCategoryController)
 // route.post('/createcategory', secureApi, verifyToken ,upload.single('avatar'), addCategoryController)
 route.post('/approvecategory',  approveCategory)
+route.post('/approvesubcategory',  approveSubCategory)
 route.post('/createsubcategory',upload.single('avatar'),  addSubCategoryController)
 route.post('/createproduct',upload.array('photos', 12),  productController)
 route.post('/editcat',  editCategory)

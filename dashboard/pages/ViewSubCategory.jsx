@@ -34,18 +34,6 @@ const ViewSubCategory = () => {
 
 
 
-      const dataSource = [
-        {
-          key: '1',
-          name: 'Mike',
-          status: ""
-        },
-        {
-          key: '2',
-          name: 'John',
-          status: ""
-        },
-      ];
       
 
 

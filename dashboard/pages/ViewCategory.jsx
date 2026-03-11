@@ -65,19 +65,7 @@ const ViewCategory = () => {
     allcategory();
   }, [refetch]);
 
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      status: "",
-    },
-    {
-      key: "2",
-      name: "John",
-      status: "",
-    },
-  ]; 
-
+  
   const handleStatus = async (record) => {
     console.log(record);
 
