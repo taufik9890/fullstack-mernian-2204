@@ -7,10 +7,11 @@ import {
 } from "@ant-design/icons";
 import { Col, Row, Menu,  Button, Checkbox, Form, Input } from "antd";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { removeUser } from "../src/slices/userSlice" 
 
 const Dashboard = () => {
-
+    const dispatch = useDispatch() 
   const navigate = useNavigate()
 
   function getItem(label, key, icon, children, type) {
@@ -24,7 +25,17 @@ const Dashboard = () => {
   }
 
 
-  
+  const handleLogout = () => {
+    localStorage.removeItem('user')  
+    dispatch(removeUser())            
+    navigate('/login')                
+}
+  getItem(<span onClick={handleLogout}>Log Out</span>, "logout"),
+
+  const onClick = (e) => {
+    if (e.key === "logout") return
+    navigate(e.key)
+  };
 
   const userInfo = useSelector(state => state.user.value)
 
@@ -64,8 +75,9 @@ const Dashboard = () => {
     // ]),
     userInfo.role !=  "User" &&
     getItem("My Profile", "sub5", <SettingOutlined />, [
-      getItem("Purchase Details", "13"),
-      getItem("Profile", "14"),
+      // getItem("Purchase Details", "13"),
+      // getItem("Profile", "14"),
+      getItem("Log Out", "/dashboard/logout"),
     ]),
     // userInfo.role ==  "User" &&
     // getItem("My Profile", "sub5", <SettingOutlined />, [
@@ -76,9 +88,9 @@ const Dashboard = () => {
 
 
  
-  const onClick = (e) => {
-    navigate(e.key)
-  };
+  // const onClick = (e) => {
+  //   navigate(e.key)
+  // };
 
 
   return (
