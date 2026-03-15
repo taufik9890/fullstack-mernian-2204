@@ -30,12 +30,6 @@ const Dashboard = () => {
     dispatch(removeUser())            
     navigate('/login')                
 }
-  getItem(<span onClick={handleLogout}>Log Out</span>, "logout"),
-
-  const onClick = (e) => {
-    if (e.key === "logout") return
-    navigate(e.key)
-  };
 
   const userInfo = useSelector(state => state.user.value)
 
@@ -77,7 +71,7 @@ const Dashboard = () => {
     getItem("My Profile", "sub5", <SettingOutlined />, [
       // getItem("Purchase Details", "13"),
       // getItem("Profile", "14"),
-      getItem("Log Out", "/dashboard/logout"),
+      getItem(<span onClick={handleLogout}>Log Out</span>, "logout"),
     ]),
     // userInfo.role ==  "User" &&
     // getItem("My Profile", "sub5", <SettingOutlined />, [
@@ -85,6 +79,13 @@ const Dashboard = () => {
     //   getItem("Profile", "14"),
     // ]),
   ];
+
+  
+  const onClick = (e) => {
+    if (e.key === "logout") return
+    navigate(e.key)
+  };
+
 
 
  
