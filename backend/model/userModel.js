@@ -13,7 +13,6 @@ const userSchema = new Schema({
         type: String,
         enum: ["Admin", "Merchant", "User"],
         default: "User"
-
     },
     otp: String
 })

@@ -32,6 +32,7 @@ const Login = () => {
 
       dispatch(activeUser(data.data))
       localStorage.setItem('user',JSON.stringify(data.data))
+      
         navigate('/dashboard')
     
 
