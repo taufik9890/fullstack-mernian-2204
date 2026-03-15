@@ -71,7 +71,7 @@ const Dashboard = () => {
     getItem("My Profile", "sub5", <SettingOutlined />, [
       // getItem("Purchase Details", "13"),
       // getItem("Profile", "14"),
-      getItem(<span style={{width: '100%'}} onClick={handleLogout}>Log Out</span>, "logout"),
+      getItem("Log Out", "logout"),
     ]),
     // userInfo.role ==  "User" &&
     // getItem("My Profile", "sub5", <SettingOutlined />, [
@@ -82,7 +82,10 @@ const Dashboard = () => {
 
   
   const onClick = (e) => {
-    if (e.key === "logout") return
+    if (e.key === "logout") {
+      handleLogout() 
+      return
+    }
     navigate(e.key)
   };
 
