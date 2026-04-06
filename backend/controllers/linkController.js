@@ -20,7 +20,6 @@ else{
     // console.log('mile nai');
     res.send('mile nai');
 }
-
 }
 
 

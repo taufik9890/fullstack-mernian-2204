@@ -63,26 +63,29 @@ let registrationController = async (req, res) => {
 
     const frontend = `${process.env.FRONTEND_URL}/emailverification/${token}`;
 
-    console.log("📧 Sending verification mail...");
+    console.log("Sending verification mail...");
     console.log("To:", email);
     console.log("Link:", frontend);
 
     // ================= NODEMAILER =================
     const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS, // APP PASSWORD
-      },
-    });
+  host: process.env.MAIL_HOST,
+  port: Number(process.env.MAIL_PORT),
+  secure: false, 
+  auth: {
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
+  },
+});
+
 
     await transporter.sendMail({
-      from: `"MERNIAN" <${process.env.MAIL_USER}>`,
+      from: `"MERNIAN" <${process.env.MAIL_FROM}>`,
       to: email,
       subject: "Verify Your Email - MERNIAN",
       html: `
         <div style="font-family: Arial;">
-          <h2>Welcome to MERNIAN 👋</h2>
+          <h2>Welcome to MERNIAN</h2>
           <p>Hi ${name},</p>
           <p>Please verify your account:</p>
           <a href="${frontend}" 
@@ -100,7 +103,7 @@ let registrationController = async (req, res) => {
     });
 
   } catch (err) {
-    console.error("❌ Registration error:", err);
+    console.error("Registration error:", err);
 
     return res.status(500).json({
       error: "Something went wrong. Please try again.",
