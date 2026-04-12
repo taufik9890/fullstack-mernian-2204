@@ -1,6 +1,7 @@
 let Cart = require('../model/cartModel')
 async function cartController(req, res){
-    const {productId, userId, quantity} = req.body
+    const {productId, quantity} = req.body
+    const userId = req.user.id
     // console.log(req.query.type);
     // console.log(productId, userId);
 

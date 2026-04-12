@@ -21,8 +21,9 @@ let loginController = async (req, res) => {
             var token = jwt.sign({
                 id: findUser._id,
                 email: findUser.email,
-                name: findUser.name
-            }, 'shhhhh', {
+                name: findUser.name,
+                role: findUser.role
+            }, process.env.JWT_SECRET, {
                 expiresIn: "24h"
             });
             if (result) {

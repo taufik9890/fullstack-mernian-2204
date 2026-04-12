@@ -39,27 +39,54 @@ const Dashboard = () => {
   const items = [
 
 
-    userInfo.role != "User" &&
+    // userInfo.role != "User" &&
+    // getItem("Users", "sub1", <MailOutlined />, [
+    //   getItem("Add User", "1"),
+    //   getItem("View User", "2"),
+    // ]),
+    
+    // userInfo.role !=  "User" &&
+    // getItem("Product", "sub2", <AppstoreOutlined />, [
+    //   getItem("Add Product", "/dashboard/addproduct"),
+    //   getItem("View Product", "/dashboard/viewproduct"),
+    //   getItem("Add Flashsale", "/dashboard/addflashsale"),
+    // ]),
+    
+    // userInfo.role !=  "User" &&
+    // getItem("Category", "sub3", <SettingOutlined />, [
+    //   getItem("Add Category", "/dashboard/addcategory"),
+    //   getItem("View Category", "/dashboard/viewcategory"),
+    //   getItem("Add Subcategory", "/dashboard/addsubcategory"),
+    //   getItem("View Subcategory", "/dashboard/viewsubcategory"),
+    // ]),
+    
+     // Admin only
+    userInfo.role === "Admin" &&
     getItem("Users", "sub1", <MailOutlined />, [
-      getItem("Add User", "1"),
-      getItem("View User", "2"),
+        getItem("Add User", "/dashboard/adduser"),
+        getItem("View User", "/dashboard/viewuser"),
     ]),
     
-    userInfo.role !=  "User" &&
+    // Admin & Merchant
+    (userInfo.role === "Admin" || userInfo.role === "Merchant") &&
     getItem("Product", "sub2", <AppstoreOutlined />, [
-      getItem("Add Product", "/dashboard/addproduct"),
-      getItem("View Product", "/dashboard/viewproduct"),
-      getItem("Add Flashsale", "/dashboard/addflashsale"),
+        getItem("Add Product", "/dashboard/addproduct"),
+        getItem("View Product", "/dashboard/viewproduct"),
+        getItem("Add Flashsale", "/dashboard/addflashsale"),
     ]),
-    
-    userInfo.role !=  "User" &&
+    // Admin & Merchant
+    (userInfo.role === "Admin" || userInfo.role === "Merchant") &&
     getItem("Category", "sub3", <SettingOutlined />, [
-      getItem("Add Category", "/dashboard/addcategory"),
-      getItem("View Category", "/dashboard/viewcategory"),
-      getItem("Add Subcategory", "/dashboard/addsubcategory"),
-      getItem("View Subcategory", "/dashboard/viewsubcategory"),
+        getItem("Add Category", "/dashboard/addcategory"),
+        getItem("View Category", "/dashboard/viewcategory"),
+        getItem("Add Subcategory", "/dashboard/addsubcategory"),
+        getItem("View Subcategory", "/dashboard/viewsubcategory"),
     ]),
-    
+
+
+
+
+
     // userInfo.role !=  "User" &&
     // getItem("Discount", "sub4", <SettingOutlined />, [
     //   getItem("Add Discount", "9"),

@@ -2,6 +2,8 @@ const Product = require('../model/productModel')
 
 let productController = async (req, res)=>{
 
+    try{
+        
      
         const {name,description, slug, regularprice, discountprice,categoryId, proType} = req.body
 
@@ -36,6 +38,12 @@ let productController = async (req, res)=>{
     
             await   product.save()
             res.send({success: "Product Created"})
+
+            
+    }catch (error) {
+        console.log(error.message)
+        res.status(500).json({ error: "Something went wrong" })  
+    }
         
 }
 module.exports = productController

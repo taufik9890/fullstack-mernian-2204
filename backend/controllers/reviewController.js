@@ -1,8 +1,10 @@
 const Review = require("../model/reviewModel")
 
 const reviewController =  async(req, res)=>{
-    let {name, email, comment,rating, productId } = req.body
+    let {comment,rating, productId } = req.body
     console.log(name, email, comment, rating, productId);
+    const name = req.user.name   
+    const email = req.user.email
     
     let review = new Review({
         name: name,
