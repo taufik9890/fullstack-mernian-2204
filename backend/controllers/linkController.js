@@ -3,8 +3,8 @@ var jwt = require('jsonwebtoken');
 
 let linkController = async (req, res)=>{
 const{token} = req.body
-
-var decoded = jwt.verify(token, 'shhhhh');
+ 
+var decoded = jwt.verify(token, process.env.JWT_SECRET);
 
 console.log('mail ashbe',decoded.email);
 
