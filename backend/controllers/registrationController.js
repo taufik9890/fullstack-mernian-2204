@@ -1,10 +1,18 @@
 const User = require("../model/userModel");
 const bcrypt = require("bcrypt");
-const nodemailer = require("nodemailer");
+// const nodemailer = require("nodemailer");
 const otpGenerator = require("otp-generator");
 const jwt = require("jsonwebtoken");
+const Brevo = require('@getbrevo/brevo')
 
 let registrationController = async (req, res) => {
+
+  const client = Brevo.ApiClient.instance
+client.authentications['api-key'].apiKey = process.env.BREVO_API_KEY
+
+const emailApi = new Brevo.TransactionalEmailsApi()
+
+
   try {
     const { name, email, password } = req.body;
 
@@ -67,23 +75,43 @@ let registrationController = async (req, res) => {
     console.log("To:", email);
     console.log("Link:", frontend);
 
+
+
     // ================= NODEMAILER =================
-    const transporter = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-  port: Number(process.env.MAIL_PORT),
-  secure: false, 
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
-  },
-});
+//     const transporter = nodemailer.createTransport({
+//   host: process.env.MAIL_HOST,
+//   port: Number(process.env.MAIL_PORT),
+//   secure: false, 
+//   auth: {
+//     user: process.env.MAIL_USER,
+//     pass: process.env.MAIL_PASS,
+//   },
+// });
 
 
-    await transporter.sendMail({
-      from: `"MERNIAN" <${process.env.MAIL_FROM}>`,
-      to: email,
-      subject: "Verify Your Email - MERNIAN",
-      html: `
+    // await transporter.sendMail({
+    //   from: `"MERNIAN" <${process.env.MAIL_FROM}>`,
+    //   to: email,
+    //   subject: "Verify Your Email - MERNIAN",
+    //   html: `
+    //     <div style="font-family: Arial;">
+    //       <h2>Welcome to MERNIAN</h2>
+    //       <p>Hi ${name},</p>
+    //       <p>Please verify your account:</p>
+    //       <a href="${frontend}" 
+    //          style="padding:10px 15px;background:#4CAF50;color:white;text-decoration:none;">
+    //          Verify Email
+    //       </a>
+    //       <p>${frontend}</p>
+    //     </div>
+    //   `,
+    // });
+    
+    await emailApi.sendTransacEmail({
+      sender: { email: process.env.MAIL_FROM, name: 'MERNIAN' },
+      to: [{ email: email, name: name }],
+      subject: 'Verify Your Email - MERNIAN',
+      htmlContent: `
         <div style="font-family: Arial;">
           <h2>Welcome to MERNIAN</h2>
           <p>Hi ${name},</p>
@@ -94,8 +122,10 @@ let registrationController = async (req, res) => {
           </a>
           <p>${frontend}</p>
         </div>
-      `,
+      `
     });
+
+    console.log("✅ Email sent successfully");
 
     return res.status(200).json({
       success: true,
