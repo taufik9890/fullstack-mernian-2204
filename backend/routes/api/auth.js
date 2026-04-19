@@ -10,6 +10,8 @@ const forgotpasswordController = require('../../controllers/forgotpasswordContro
 const newpasswordController = require('../../controllers/newpasswordController')
 const logoutController = require('../../controllers/logoutController')
 const changeRoleController = require('../../controllers/changeRoleController')
+const {authenticate, authorize} = require('../../middleware/roleMiddleware')
+
 
 route.post('/changerole', authenticate, authorize('Admin'), changeRoleController)
 route.post('/registration', secureApi, registrationController)
