@@ -5,6 +5,8 @@ let linkController = async (req, res)=>{
 
     try {
         const { token } = req.body
+         console.log('JWT_SECRET being used:', process.env.JWT_SECRET) // 👈 add this
+        console.log('Token received:', token)
 
         if (!token) {
             return res.status(400).json({ error: 'Token required' })
