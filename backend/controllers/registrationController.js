@@ -66,7 +66,7 @@ const emailApi = new Brevo.TransactionalEmailsApi()
     const token = jwt.sign(
       { email },
       process.env.JWT_SECRET,
-      { expiresIn: "15m" }
+    { expiresIn: "24h" }
     );
 
     const frontend = `${process.env.FRONTEND_URL}/emailverification/${token}`;

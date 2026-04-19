@@ -5,27 +5,28 @@ import axios from 'axios'
 const EmailVerifyLink = () => {
 
   
-let param = useParams()
-console.log(param.token);
+const param = useParams()
+    const navigate = useNavigate()
+    const [status, setStatus] = useState('Verifying your email...')
+    const [isExpired, setIsExpired] = useState(false)
 
-
-const navigate = useNavigate()
-const [status, setStatus] = useState('Loading...')
-
-
-
-useEffect(() => {
+    useEffect(() => {
         async function verify() {
             try {
                 await axios.post(
                     `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/auth/linkverification`,
                     { token: param.token }
                 )
-                setStatus('Email verified! Redirecting to login...')
-                setTimeout(() => navigate('/login'), 2000) // 👈 give user 2 seconds to see success
+                setStatus('✅ Email verified! Redirecting to login...')
+                setTimeout(() => navigate('/login'), 2000)
             } catch (error) {
-                console.log(error)
-                setStatus('Verification failed. Link may have expired.')
+                const errMsg = error.response?.data?.error || ''
+                if (errMsg.includes('expired')) {
+                    setIsExpired(true)
+                    setStatus('❌ Verification link has expired.')
+                } else {
+                    setStatus('❌ Verification failed. Please try again.')
+                }
             }
         }
         verify()
@@ -48,6 +49,11 @@ useEffect(() => {
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
             <h2>{status}</h2>
+            {isExpired && (
+                <button onClick={() => navigate('/login')}>
+                    Go to Login & Request New Link
+                </button>
+            )}
         </div>
   )
 }
