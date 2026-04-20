@@ -27,7 +27,7 @@ const router = createBrowserRouter(
       {/* <Route path="/" element={<Login />} /> */}
       <Route path="/otpverification/:email" element={<OtpVerification />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/emailverification/:token" element={<EmailVerifyLink />} />
+      <Route path="/emailverification" element={<EmailVerifyLink />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/newpassword/:token" element={<NewPassword />} />
       <Route path="/dashboard" element={<Dashboard />}>

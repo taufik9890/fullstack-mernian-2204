@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {useNavigate, useParams} from 'react-router-dom'
+import {useNavigate, useParams, useSearchParams} from 'react-router-dom'
 import axios from 'axios'
 
 const EmailVerifyLink = () => {
@@ -9,25 +9,28 @@ const param = useParams()
     const navigate = useNavigate()
     const [status, setStatus] = useState('Verifying your email...')
     const [isExpired, setIsExpired] = useState(false)
+    const [searchParams] = useSearchParams()
 
-    useEffect(() => {
+     useEffect(() => {
         async function verify() {
             try {
-                const decodedToken = decodeURIComponent(param.token)
+                const token = searchParams.get('token')  
+                console.log('token:', token)
+
+                if (!token) {
+                    setStatus('❌ Invalid verification link.')
+                    return
+                }
+
                 await axios.post(
                     `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/auth/linkverification`,
-                    { token: decodedToken }
+                    { token: token }
                 )
                 setStatus('✅ Email verified! Redirecting to login...')
                 setTimeout(() => navigate('/login'), 2000)
             } catch (error) {
-                const errMsg = error.response?.data?.error || ''
-                if (errMsg.includes('expired')) {
-                    setIsExpired(true)
-                    setStatus('❌ Verification link has expired.')
-                } else {
-                    setStatus('❌ Verification failed. Please try again.')
-                }
+                console.log(error)
+                setStatus('❌ Verification failed. Please try again.')
             }
         }
         verify()
