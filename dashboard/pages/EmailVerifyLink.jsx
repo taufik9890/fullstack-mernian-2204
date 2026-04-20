@@ -13,9 +13,10 @@ const param = useParams()
     useEffect(() => {
         async function verify() {
             try {
+                const decodedToken = decodeURIComponent(param.token)
                 await axios.post(
                     `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/auth/linkverification`,
-                    { token: param.token }
+                    { token: decodedToken }
                 )
                 setStatus('✅ Email verified! Redirecting to login...')
                 setTimeout(() => navigate('/login'), 2000)

@@ -12,8 +12,8 @@ let linkController = async (req, res)=>{
             return res.status(400).json({ error: 'Token required' })
         }
 
-        const decoded = jwt.verify(token, '123456789') 
-        // const decoded = jwt.verify(token, process.env.JWT_SECRET) 
+        // const decoded = jwt.verify(token, '123456789') 
+        const decoded = jwt.verify(token, process.env.JWT_SECRET) 
 
         const findUser = await User.findOne({ email: decoded.email })
 
