@@ -68,7 +68,8 @@ const emailApi = new Brevo.TransactionalEmailsApi()
       process.env.JWT_SECRET,
     { expiresIn: "24h" }
     );
-    const frontend = `${process.env.FRONTEND_URL}/emailverification?token=${encodeURIComponent(token)}`;
+    // const frontend = `${process.env.FRONTEND_URL}/emailverification?token=${encodeURIComponent(token)}`;
+    const frontend = `${process.env.FRONTEND_URL}/emailverification?token=${encodeURIComponent(token)}`
 
     console.log("Sending verification mail...");
     console.log("To:", email);
