@@ -154,7 +154,7 @@ await apiInstance.sendTransacEmail(sendSmtpEmail)
 
     return res.status(200).json({
       success: true,
-      message: "Registration successful. check your email to verify.",
+      message: "Registration successful. Please check your email to verify.",
     });
 
   } catch (err) {
