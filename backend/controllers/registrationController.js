@@ -3,14 +3,20 @@ const bcrypt = require("bcrypt");
 // const nodemailer = require("nodemailer");
 const otpGenerator = require("otp-generator");
 const jwt = require("jsonwebtoken");
-const Brevo = require('@getbrevo/brevo')
+const SibApiV3Sdk = require('@getbrevo/brevo')
+
+
+let apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
+let apiKey = apiInstance.authentications['api-key']
+apiKey.apiKey = process.env.BREVO_API_KEY
 
 let registrationController = async (req, res) => {
 
-  const client = Brevo.ApiClient.instance
-client.authentications['api-key'].apiKey = process.env.BREVO_API_KEY
+//   const client = Brevo.ApiClient.instance
+// client.authentications['api-key'].apiKey = process.env.BREVO_API_KEY
 
-const emailApi = new Brevo.TransactionalEmailsApi()
+// const emailApi = new Brevo.TransactionalEmailsApi()
+
 
 
   try {
@@ -107,23 +113,42 @@ const emailApi = new Brevo.TransactionalEmailsApi()
     //   `,
     // });
     
-    await emailApi.sendTransacEmail({
-      sender: { email: process.env.MAIL_FROM, name: 'MERNIAN' },
-      to: [{ email: email, name: name }],
-      subject: 'Verify Your Email - MERNIAN',
-      htmlContent: `
-        <div style="font-family: Arial;">
-          <h2>Welcome to MERNIAN</h2>
-          <p>Hi ${name},</p>
-          <p>Please verify your account:</p>
-          <a href="${frontend}" 
-             style="padding:10px 15px;background:#4CAF50;color:white;text-decoration:none;">
-             Verify Email
-          </a>
-          <p>${frontend}</p>
-        </div>
-      `
-    });
+    let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail()
+
+    sendSmtpEmail.subject = 'Verify Your Email - MERNIAN'
+sendSmtpEmail.htmlContent = `
+    <div style="font-family: Arial;">
+        <h2>Welcome to MERNIAN</h2>
+        <p>Hi ${name},</p>
+        <p>Please verify your account:</p>
+        <a href="${frontend}" style="padding:10px 15px;background:#4CAF50;color:white;text-decoration:none;">
+            Verify Email
+        </a>
+        <p>${frontend}</p>
+    </div>
+`
+sendSmtpEmail.sender = { email: process.env.MAIL_FROM, name: 'MERNIAN' }
+sendSmtpEmail.to = [{ email: email, name: name }]
+
+await apiInstance.sendTransacEmail(sendSmtpEmail)
+    
+    // await emailApi.sendTransacEmail({
+    //   sender: { email: process.env.MAIL_FROM, name: 'MERNIAN' },
+    //   to: [{ email: email, name: name }],
+    //   subject: 'Verify Your Email - MERNIAN',
+    //   htmlContent: `
+    //     <div style="font-family: Arial;">
+    //       <h2>Welcome to MERNIAN</h2>
+    //       <p>Hi ${name},</p>
+    //       <p>Please verify your account:</p>
+    //       <a href="${frontend}" 
+    //          style="padding:10px 15px;background:#4CAF50;color:white;text-decoration:none;">
+    //          Verify Email
+    //       </a>
+    //       <p>${frontend}</p>
+    //     </div>
+    //   `
+    // });
 
     console.log("✅ Email sent successfully");
 
