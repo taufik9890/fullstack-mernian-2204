@@ -18,6 +18,7 @@ let registrationController = async (req, res) => {
 // const emailApi = new Brevo.TransactionalEmailsApi()
 
 
+console.log(Object.keys(SibApiV3Sdk))
 
   try {
     const { name, email, password } = req.body;
