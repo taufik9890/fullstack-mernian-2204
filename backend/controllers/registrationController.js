@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 // const nodemailer = require("nodemailer");
 const otpGenerator = require("otp-generator");
 const jwt = require("jsonwebtoken");
-const SibApiV3Sdk = require('@getbrevo/brevo')
+const SibApiV3Sdk = require('sib-api-v3-sdk') 
 
 
 let apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
@@ -17,8 +17,6 @@ let registrationController = async (req, res) => {
 
 // const emailApi = new Brevo.TransactionalEmailsApi()
 
-
-console.log(Object.keys(SibApiV3Sdk))
 
   try {
     const { name, email, password } = req.body;
