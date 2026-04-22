@@ -5,10 +5,11 @@ const otpGenerator = require("otp-generator");
 const jwt = require("jsonwebtoken");
 const SibApiV3Sdk = require('sib-api-v3-sdk') 
 
-
-let apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
-let apiKey = apiInstance.authentications['api-key']
+const defaultClient = SibApiV3Sdk.ApiClient.instance
+const apiKey = defaultClient.authentications['api-key']
 apiKey.apiKey = process.env.BREVO_API_KEY
+const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
+
 
 let registrationController = async (req, res) => {
 
