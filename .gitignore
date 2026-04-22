@@ -5,3 +5,4 @@ dashboard/.env
 frontend/.env
 frontend/.env.local
 build
+.vercel
