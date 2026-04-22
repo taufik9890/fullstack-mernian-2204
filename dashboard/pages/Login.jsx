@@ -60,7 +60,7 @@ const Login = () => {
   return (
     <>
     {msg && 
-    <Alert message={msg} type="success" showIcon closable />
+    <Alert message={msg} type="successs" showIcon closable />
     }
     <Form
     name="basic"
