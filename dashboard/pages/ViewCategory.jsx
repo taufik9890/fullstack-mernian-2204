@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Space, Table, Tag, Checkbox, Form, Input } from "antd";
 import axios from "axios";
+import { useSelector } from 'react-redux'
 
 const ViewCategory = () => {
+  const userInfo = useSelector(state => state.user.value)
   const [initialValue, setInitialValue] = useState([]);
   let [refetch, setRefetch] = useState(false)
  
@@ -101,7 +103,7 @@ const ViewCategory = () => {
       dataIndex: "status",
       key: "status",
     },
-    {
+    userInfo.role === "Admin" && {
       title: "Action",
       dataIndex: "action",
       key: "action",
@@ -189,7 +191,7 @@ const ViewCategory = () => {
         //   <a>Invite {record.image}</a>
       ),
     },
-  ];
+  ].filter(Boolean)
   return <Table dataSource={categoryList} columns={columns}/>;
 };
 

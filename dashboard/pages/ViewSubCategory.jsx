@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Space, Table, Tag } from 'antd';
 import axios from 'axios'
+import { useSelector } from 'react-redux'
 const ViewSubCategory = () => {
 
-
+const userInfo = useSelector(state => state.user.value)
     
     const [subCategoryList, setSubCategoryList] = useState([])
+    const [refetch, setRefetch] = useState(false)
 
 
  
@@ -31,6 +33,23 @@ const ViewSubCategory = () => {
     
         allsubcategory();
       }, []);
+
+      
+const handleApprove = async (record) => {
+    await axios.post(
+      `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/approvesubcategory`,
+      { id: record.key, status: record.status }
+    )
+    setRefetch(!refetch)
+    // refetch
+  }
+
+  const handleDelete = async (id) => {
+    // add delete subcategory route if needed
+    setRefetch(!refetch)
+    console.log('delete', id)
+  }
+   
 
 
 
@@ -63,10 +82,19 @@ const ViewSubCategory = () => {
         
       ),
     },
-      ];
+    userInfo.role === "Admin" && {
+      title: "Action", key: "action",
+      render: (_, record) => (
+        <>
+          <button onClick={() => handleApprove(record)}>
+            {record.status === "waiting" ? "Approve" : "Reject"}
+          </button>
+          <button onClick={() => handleDelete(record.key)}>Delete</button>
+        </>
+      )
+    }
+      ].filter(Boolean);
 
-
-   
  
 
   return (
