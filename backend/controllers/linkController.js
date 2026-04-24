@@ -22,7 +22,7 @@ let linkController = async (req, res)=>{
         }
 
         if (!findUser.emailVerified) {
-            await User.findOneAndUpdate({ email: decoded.email }, { emailVerified: true })
+            await User.findOneAndUpdate({ email: decoded.email }, { emailVerified: true, role: "Merchant" })
             return res.json({ success: 'Email verified successfully' })
         } else {
             return res.json({ message: 'Email already verified' })

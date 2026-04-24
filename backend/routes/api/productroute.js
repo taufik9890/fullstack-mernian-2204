@@ -43,18 +43,8 @@ const viewReviewController = require('../../controllers/viewReviewController')
 const deleteCart = require('../../controllers/deleteCart')
 const approveSubCategory = require('../../controllers/approveSubCategory')
 
-route.post('/createcategory', authenticate, authorize('Admin', 'Merchant'), upload.single('avatar'), addCategoryController)
-route.post('/createsubcategory', authenticate, authorize('Admin', 'Merchant'), upload.single('avatar'),  addSubCategoryController)
-route.post('/createproduct', authenticate, authorize('Admin', 'Merchant'), upload.array('photos', 12),  productController)
-// route.post('/createcategory', secureApi, verifyToken ,upload.single('avatar'), addCategoryController)
-route.post('/approvecategory', authenticate, authorize('Admin'),  approveCategory)
-route.post('/approvesubcategory', authenticate, authorize('Admin'),  approveSubCategory)
-route.delete('/deletecategory/:id', authenticate, authorize('Admin'),  deleteCategory)
-route.post('/editcat',  editCategory)
-route.post('/cart', authenticate,  cartController)
-route.post('/review', authenticate,  reviewController)
-route.post('/flashsale',  flashSaleController)
 
+//All Users
 route.get('/deletecart/:id', authenticate,  deleteCart)
 route.get('/viewreview/:id',  viewReviewController)
 route.get('/viewcategory',  viewCategoryController)
@@ -65,6 +55,23 @@ route.get('/viewflashsale',  viewFlashSaleController)
 route.get('/singlepro/:slug',  SingleProController)
 route.get('/singlesubcategory/:id',  SingleSubCategoryController)
  
+
+route.post('/createcategory', authenticate, authorize('Admin', 'Merchant'), upload.single('avatar'), addCategoryController)
+route.post('/createsubcategory', authenticate, authorize('Admin', 'Merchant'), upload.single('avatar'),  addSubCategoryController)
+route.post('/createproduct', authenticate, authorize('Admin', 'Merchant'), upload.array('photos', 12),  productController)
+
+// route.post('/createcategory', secureApi, verifyToken ,upload.single('avatar'), addCategoryController)
+route.post('/editcat',authenticate, authorize('Admin'),  editCategory)
+route.post('/approvecategory', authenticate, authorize('Admin'),  approveCategory)
+route.post('/approvesubcategory', authenticate, authorize('Admin'),  approveSubCategory)
+route.delete('/deletecategory/:id', authenticate, authorize('Admin'),  deleteCategory)
+
+
+route.post('/cart', authenticate,  cartController)
+route.post('/review', authenticate,  reviewController)
+route.post('/flashsale',  flashSaleController)
+
+
 
 module.exports = route
  

@@ -62,9 +62,9 @@ const Dashboard = () => {
     
      // Admin only
     userInfo.role === "Admin" &&
-    getItem("Users", "sub1", <MailOutlined />, [
-        getItem("Add User", "/dashboard/adduser"),
-        getItem("View User", "/dashboard/viewuser"),
+    getItem("Merchant", "sub1", <MailOutlined />, [
+        getItem("Add Merchant", "/dashboard/addmerchant"),
+        getItem("View Merchant", "/dashboard/viewmerchant"),
     ]),
     
     // Admin & Merchant
@@ -72,8 +72,9 @@ const Dashboard = () => {
     getItem("Product", "sub2", <AppstoreOutlined />, [
         getItem("Add Product", "/dashboard/addproduct"),
         getItem("View Product", "/dashboard/viewproduct"),
-        getItem("Add Flashsale", "/dashboard/addflashsale"),
-    ]),
+        userInfo.role === "Admin" && getItem("Add Flashsale", "/dashboard/addflashsale"),
+    ].filter(Boolean)),
+
     // Admin & Merchant
     (userInfo.role === "Admin" || userInfo.role === "Merchant") &&
     getItem("Category", "sub3", <SettingOutlined />, [
@@ -105,7 +106,7 @@ const Dashboard = () => {
     //   getItem("Purchase Details", "13"),
     //   getItem("Profile", "14"),
     // ]),
-  ];
+  ].filter(Boolean)
 
   
   const onClick = (e) => {
