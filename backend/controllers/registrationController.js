@@ -67,7 +67,7 @@ let registrationController = async (req, res) => {
     sendSmtpEmail.to = [{ email: email, name: name }]
 
     await apiInstance.sendTransacEmail(sendSmtpEmail)
-    console.log("✅ Email sent successfully");
+    console.log("Email sent successfully");
 
     return res.status(200).json({
       success: true,
