@@ -3,6 +3,7 @@ import { Button, Checkbox, Form, Input, Select, Space } from "antd";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+
 const AddSubCategory = () => {
   // const handleChange = (value) => {
   //   console.log(`selected ${value}`);
@@ -16,6 +17,7 @@ const AddSubCategory = () => {
   };
 
   const onFinish = async (values) => {
+    const user = JSON.parse(localStorage.getItem('user'))
     // console.log('Success:', values);
     // let data = await axios.post(
     //   `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/createsubcategory`,
@@ -33,11 +35,15 @@ const AddSubCategory = () => {
     let formData = new FormData()
   formData.append("name", values.name)
   formData.append("avatar", image)  
+  formData.append("categoryId", categoryId) 
 
   let data = await axios.post(
     `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/createsubcategory`,
     formData,
-    { headers: { "Content-Type": 'multipart/form-data' } }
+    { headers: { "Content-Type": 'multipart/form-data',
+                 "Authorization": `Bearer ${user.token}`
+                }
+     }
   );
     console.log(data);
   };

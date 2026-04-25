@@ -68,6 +68,7 @@ const AddProduct = () => {
 
  
   const onFinish = async (values) => {
+    const user = JSON.parse(localStorage.getItem('user'))
     // console.log('Success:', values.name.split(" ").join("-").toLowerCase());
     // console.log('Success:', {
     //   name: values.name,
@@ -87,6 +88,7 @@ const AddProduct = () => {
     formData.append("discountprice", values.discountprice)
     formData.append("slug", values.name.split(" ").join("-").toLowerCase())
     formData.append("categoryId", categoryId)
+    formData.append("subcategoryId", subcategoryId)
     formData.append("proType", type)
     image.forEach(item=>{
       formData.append("photos", item)
@@ -106,6 +108,7 @@ const AddProduct = () => {
       {
         headers: {
           "Content-Type": "multipart/form-data", 
+          "Authorization": `Bearer ${user.token}`
         },
       }
     );

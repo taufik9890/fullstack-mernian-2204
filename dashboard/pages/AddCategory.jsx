@@ -30,6 +30,7 @@ const AddCategory = () => {
   // };
 
   const onFinish = async (values) => {
+    const user = JSON.parse(localStorage.getItem('user'))
   let formData = new FormData()
   formData.append("name", values.name)
   formData.append("avatar", image)  // must match upload.single('avatar') in route
@@ -37,7 +38,9 @@ const AddCategory = () => {
   let data = await axios.post(
     `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/createcategory`,
     formData,
-    { headers: { "Content-Type": 'multipart/form-data' } }
+    { headers: { "Content-Type": 'multipart/form-data',
+                "Authorization": `Bearer ${user.token}`
+               } }
   );
   console.log(data);
 };
