@@ -69,6 +69,7 @@ const ViewCategory = () => {
 
   
   const handleStatus = async (record) => {
+    const user = JSON.parse(localStorage.getItem('user'))
     console.log(record);
 
     let data = await axios.post(
@@ -76,15 +77,20 @@ const ViewCategory = () => {
       {
         id: record.key,
         status: record.status,
-      }
-    );
+      },
+      { headers: { "Authorization": `Bearer ${user.token}` } }
+    )
+    setRefetch(!refetch)
     console.log(data);
   };
 
   const handleDelete = async (id) => {
+    const user = JSON.parse(localStorage.getItem('user'))
     let data = await axios.delete(
-      `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/deletecategory/${id}`
+      `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/deletecategory/${id}`,
+      { headers: { "Authorization": `Bearer ${user.token}` } }
     );
+    setRefetch(!refetch)
     console.log(data);
   };
   // const handleChange = ()=>{

@@ -43,6 +43,7 @@ const AddProduct = () => {
   const [categoryId, setCategoryId] = useState("")
 
   const [subCategoryList, setSubCategoryList] = useState([])
+  const [subcategoryId, setSubcategoryId] = useState("")
   const [type, setType] = useState("")
 
 
@@ -128,10 +129,10 @@ const AddProduct = () => {
   };
   
    const handleChangeCatId = async (e)=>{
-    
-
+    console.log('selected category:', e)
     let data = await axios.get(
         `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/singlesubcategory/${e}`);
+        console.log('subcategories:', data.data) 
         let categoryData = []
 
         data.data.map((item)=>{
@@ -144,6 +145,9 @@ const AddProduct = () => {
         setSubCategoryList(categoryData)
         setCategoryId(e);
   }
+  const handleChangeSubCatId = (e) => {
+    setSubcategoryId(e)
+}
 
   const handleSLug = (e) =>{
     setShowSlug(e.target.value.split(" ").join("-").toLowerCase())
@@ -256,7 +260,7 @@ const AddProduct = () => {
           style={{
             width: 180,
           }}
-          onChange={handleChangeCatId}
+          onChange={handleChangeSubCatId}
           options={subCategoryList}
         />
       </Form.Item>

@@ -61,9 +61,11 @@ const userInfo = useSelector(state => state.user.value)
 
       
 const handleApprove = async (record) => {
+  const user = JSON.parse(localStorage.getItem('user'))
     await axios.post(
       `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/approvesubcategory`,
-      { id: record.key, status: record.status }
+      { id: record.key, status: record.status },
+      { headers: { "Authorization": `Bearer ${user.token}` } } 
     )
     setRefetch(!refetch)
     // refetch
