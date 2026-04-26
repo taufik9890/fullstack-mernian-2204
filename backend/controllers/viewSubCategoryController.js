@@ -5,6 +5,7 @@ let viewSubCategoryController = async (req, res)=>{
 
     // Category
     let data = await subCatergory.find().populate("categoryId", "name status")
+    console.log("subcategory data:", JSON.stringify(data[0], null, 2))
 
 
     console.log("new", data);
