@@ -42,6 +42,7 @@ const reviewController = require('../../controllers/reviewController')
 const viewReviewController = require('../../controllers/viewReviewController')
 const deleteCart = require('../../controllers/deleteCart')
 const approveSubCategory = require('../../controllers/approveSubCategory')
+const deleteSubCategory = require('../../controllers/deleteSubCategory')
 
 
 //All Users
@@ -65,6 +66,7 @@ route.post('/editcat',authenticate, authorize('Admin'),  editCategory)
 route.post('/approvecategory', authenticate, authorize('Admin'),  approveCategory)
 route.post('/approvesubcategory', authenticate, authorize('Admin'),  approveSubCategory)
 route.delete('/deletecategory/:id', authenticate, authorize('Admin'),  deleteCategory)
+route.delete('/deletesubcategory/:id', authenticate, authorize('Admin'), deleteSubCategory)
 
 
 route.post('/cart', authenticate,  cartController)

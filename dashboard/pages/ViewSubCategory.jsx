@@ -72,11 +72,13 @@ const handleApprove = async (record) => {
   }
 
   const handleDelete = async (id) => {
-    // add delete subcategory route if needed
+    const user = JSON.parse(localStorage.getItem('user'))
+    await axios.delete(
+        `${import.meta.env.VITE_DASHBOARD_REACT_APP_BASEURL}/product/deletesubcategory/${id}`,
+        { headers: { "Authorization": `Bearer ${user.token}` } }
+    )
     setRefetch(!refetch)
-    console.log('delete', id)
-  }
-   
+}
 
 
 
