@@ -12,15 +12,15 @@ function Hero() {
             <div className='first-banner'>
                 <Carousel fade className='carousel'>
                     <Carousel.Item  className='banner-carousel'>
-                        {/* <Images src="/Frame 10.png" width={1073} height={644} alt="..."/> */}
+                        <Images src="/Frame 10.png" width={1073} height={644} alt="..."/>
                         
                     </Carousel.Item>
                     <Carousel.Item className='banner-carousel'>
-                    {/* <Images src="/Offers_2.png" width={1073} height={644} alt="..."/> */}
+                    <Images src="/Offers_2.png" width={1073} height={644} alt="..."/>
                     
                     </Carousel.Item>
                     <Carousel.Item className='banner-carousel'>
-                    {/* <Images src="/Offers_3.png" width={1073} height={644} alt="..."/> */}
+                    <Images src="/Offers_3.png" width={1073} height={644} alt="..."/>
                     
                     </Carousel.Item>
                 </Carousel>
