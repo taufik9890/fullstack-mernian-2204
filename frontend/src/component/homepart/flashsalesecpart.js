@@ -51,7 +51,7 @@ function Flashsalesecpart({posts}) {
   return (
     <>
 
-        <div className='mt-5'><Slider {...settings}>
+        {/* <div className='mt-5'><Slider {...settings}>
         <div className='flash-sec-part'>
             <div className='sec-items'>
                 <a href='/pages/product'>
@@ -173,7 +173,7 @@ function Flashsalesecpart({posts}) {
                 </div>
             </div>
       </Slider>
-    </div>
+    </div> */}
     </>
   )
 }
